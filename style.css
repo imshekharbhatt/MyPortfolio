@@ -656,7 +656,7 @@ footer{
 
 @media only screen and (max-width: 540px){
     .featured-name{
-        font-size: 40px;
+        font-size: 28px;
     }
     .project-box{
         width: 100%;
@@ -664,4 +664,7 @@ footer{
     .form-inputs{
         flex-direction: column;
     }
-    .in
+        .input-field{
+        width: 100%;
+    }
+}
