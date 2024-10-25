@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $to = "shekharbhattaa@gmail.com"; 
     $subject = "New Message from Contact Form";
     $body = "Name: $name\nEmail: $email\nMessage:\n$message";
-    $headers = "From: webmaster@shekharbhatt.com.np\r\n"; // Replace with an email on your domain
+    $headers = "From: webmaster@shekharbhatt.com.np\r\n"; 
     $headers .= "Reply-To: $email\r\n";
 
     // Check if mail function works
