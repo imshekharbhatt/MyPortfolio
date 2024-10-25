@@ -137,13 +137,14 @@ document.querySelectorAll('.nav-link').forEach(link => {
     event.preventDefault(); 
     
     const formData = new FormData(this);
-
+    
     fetch('form.php', {
         method: 'POST',
         body: formData
     })
     .then(response => {
         if (!response.ok) {
+            console.log("Fetch response error:", response.statusText);
             throw new Error('Network response was not ok ' + response.statusText);
         }
         return response.json();
@@ -151,18 +152,16 @@ document.querySelectorAll('.nav-link').forEach(link => {
     .then(data => {
         console.log('Response Data:', data);
         const formResponse = document.getElementById('form-response');
-        formResponse.style.display = 'block'; 
-        
+        formResponse.style.display = 'block';
         formResponse.textContent = data.message;
+        formResponse.style.color = data.status === 'success' ? 'green' : 'red';
         if (data.status === 'success') {
-            formResponse.style.color = 'green';
-        } else {
-            formResponse.style.color = 'red';
+            this.reset(); // Reset form on success
         }
-        this.reset(); 
     })
     .catch(error => {
-        console.error('Error:', error);  
+        console.error('Fetch Error:', error);
+        alert('An error occurred. Check console logs for more details.');
     });
 };
 
@@ -171,3 +170,10 @@ document.querySelectorAll('.nav-link').forEach(link => {
     window.location.href = 'shekharbhatt-resume.pdf';
 });
 
+document.getElementById('downloadCvButtonFeatured').addEventListener('click', function() {
+    window.location.href = 'shekharbhatt-resume.pdf';
+});
+
+document.getElementById('downloadCvButtonAbout').addEventListener('click', function() {
+    window.location.href = 'shekharbhatt-resume.pdf';
+});
