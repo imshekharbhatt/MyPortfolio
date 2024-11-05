@@ -161,7 +161,7 @@ document.querySelectorAll('.nav-link').forEach(link => {
     })
     .catch(error => {
         console.error('Fetch Error:', error);
-        alert('An error occurred. Check console logs for more details.');
+        alert('Sorry ! An error occurred.');
     });
 };
 
