@@ -222,10 +222,9 @@ body.dark-mode #darkModeIcon {
     margin-block: 20px;
 }
 .typedText{
-   font-family: 'Abril Fatface';
-   font-weight: 250;
-    text-transform: capitalize;
-    color: var(--first-color);
+   font-weight: 600;
+   text-transform: capitalize;
+   color: var(--first-color);
 }
 .featured-text-info{
     font-size: 15px;
