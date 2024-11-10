@@ -135,44 +135,27 @@ document.querySelectorAll('.nav-link').forEach(link => {
 
 /*-----DARK-MODE-ICON-----*/
 const darkModeToggle = document.querySelector('.dark-mode-toggle');
+const darkModeToggle = document.querySelector('.dark-mode-toggle');
 const darkModeIcon = document.getElementById('darkModeIcon');
 
-const DARK_MODE_CLASS = 'dark-mode';
-const LIGHT_THEME = 'light';
-const DARK_THEME = 'dark';
-const MOON_ICON_CLASS = 'uil-moon';
-const SUN_ICON_CLASS = 'uil-sun';
+// Check for previously saved theme from local storage
+if (localStorage.getItem('theme') === 'dark') {
+    document.body.classList.add('dark-mode');
+    darkModeIcon.classList.replace('uil-moon', 'uil-sun');
+}
 
-// Function to update the theme icon
-function updateIcon(isDarkMode) {
-    if (isDarkMode) {
-        darkModeIcon.classList.replace(MOON_ICON_CLASS, SUN_ICON_CLASS);
+// Toggle dark mode on click
+darkModeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    
+    if (document.body.classList.contains('dark-mode')) {
+        darkModeIcon.classList.replace('uil-moon', 'uil-sun');
+        localStorage.setItem('theme', 'dark');
     } else {
-        darkModeIcon.classList.replace(SUN_ICON_CLASS, MOON_ICON_CLASS);
+        darkModeIcon.classList.replace('uil-sun', 'uil-moon');
+        localStorage.setItem('theme', 'light');
     }
-}
-
-// Function to toggle theme and store preference
-function toggleTheme() {
-    const isDarkMode = document.body.classList.toggle(DARK_MODE_CLASS);
-    localStorage.setItem('theme', isDarkMode ? DARK_THEME : LIGHT_THEME);
-    updateIcon(isDarkMode);
-}
-
-// Set theme on load based on saved preference
-document.addEventListener('DOMContentLoaded', () => {
-    const savedTheme = localStorage.getItem('theme');
-    const isDarkMode = savedTheme === DARK_THEME;
-
-    if (isDarkMode) {
-        document.body.classList.add(DARK_MODE_CLASS);
-    }
-    updateIcon(isDarkMode);
 });
-
-// Event listener for the toggle button
-darkModeToggle.addEventListener('click', toggleTheme);
-
   
     /* -- FORM-BUTTON SECTION-- */
   document.getElementById('contact-form').onsubmit = function(event) {
