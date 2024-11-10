@@ -133,29 +133,6 @@ document.querySelectorAll('.nav-link').forEach(link => {
   window.addEventListener('scroll', scrollActive)
 
 
-/*-----DARK-MODE-ICON-----*/
-const darkModeToggle = document.querySelector('.dark-mode-toggle');
-const darkModeIcon = document.getElementById('darkModeIcon');
-
-// Check for previously saved theme from local storage
-if (localStorage.getItem('theme') === 'dark') {
-    document.body.classList.add('dark-mode');
-    darkModeIcon.classList.replace('uil-moon', 'uil-sun');
-}
-
-// Toggle dark mode on click
-darkModeToggle.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-    
-    if (document.body.classList.contains('dark-mode')) {
-        darkModeIcon.classList.replace('uil-moon', 'uil-sun');
-        localStorage.setItem('theme', 'dark');
-    } else {
-        darkModeIcon.classList.replace('uil-sun', 'uil-moon');
-        localStorage.setItem('theme', 'light');
-    }
-});
-  
     /* -- FORM-BUTTON SECTION-- */
   document.getElementById('contact-form').onsubmit = function(event) {
     event.preventDefault(); 
@@ -201,3 +178,28 @@ document.getElementById('downloadCvButtonFeatured').addEventListener('click', fu
 document.getElementById('downloadCvButtonAbout').addEventListener('click', function() {
     window.location.href = 'shekharbhatt-resume.pdf';
 });
+
+
+/*-----DARK-MODE-ICON-----*/
+const darkModeToggle = document.querySelector('.dark-mode-toggle');
+const darkModeIcon = document.getElementById('darkModeIcon');
+
+// Check for previously saved theme from local storage
+if (localStorage.getItem('theme') === 'dark') {
+    document.body.classList.add('dark-mode');
+    darkModeIcon.classList.replace('uil-moon', 'uil-sun');
+}
+
+// Toggle dark mode on click
+darkModeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    
+    if (document.body.classList.contains('dark-mode')) {
+        darkModeIcon.classList.replace('uil-moon', 'uil-sun');
+        localStorage.setItem('theme', 'dark');
+    } else {
+        darkModeIcon.classList.replace('uil-sun', 'uil-moon');
+        localStorage.setItem('theme', 'light');
+    }
+});
+  
