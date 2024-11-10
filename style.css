@@ -507,15 +507,22 @@ h3{
     width: 100%;
 }
 .input-field{
+   color: var(--black-color);
     width: 50%;
     height: 55px;
     background: transparent;
-    border: 2px solid #AAA;
+    border: 2px solid #E7DBDB;
     border-radius: 10px;
     padding-inline: 20px;
     outline: none;
 }
+.input-field:focus {
+    border-color: #0066cc; 
+    outline: none; 
+    background-color: transparent; 
+}
 textarea{
+    color: var(--black-color);
     width: 100%;
     height: 250px;
     background: transparent;
@@ -524,6 +531,11 @@ textarea{
     padding: 15px 20px;
     outline: none;
     resize: none;
+}
+textarea:focus {
+    border-color: #0066cc; 
+    outline: none; 
+    background-color: transparent; 
 }
 .form-button>.btn{
     display: flex;
@@ -720,4 +732,4 @@ footer{
         .input-field{
         width: 100%;
     }
-    }
+        }
