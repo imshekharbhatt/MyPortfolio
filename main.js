@@ -131,6 +131,48 @@ document.querySelectorAll('.nav-link').forEach(link => {
   }
 
   window.addEventListener('scroll', scrollActive)
+
+
+/*-----DARK-MODE-ICON-----*/
+const darkModeToggle = document.querySelector('.dark-mode-toggle');
+const darkModeIcon = document.getElementById('darkModeIcon');
+
+const DARK_MODE_CLASS = 'dark-mode';
+const LIGHT_THEME = 'light';
+const DARK_THEME = 'dark';
+const MOON_ICON_CLASS = 'uil-moon';
+const SUN_ICON_CLASS = 'uil-sun';
+
+// Function to update the theme icon
+function updateIcon(isDarkMode) {
+    if (isDarkMode) {
+        darkModeIcon.classList.replace(MOON_ICON_CLASS, SUN_ICON_CLASS);
+    } else {
+        darkModeIcon.classList.replace(SUN_ICON_CLASS, MOON_ICON_CLASS);
+    }
+}
+
+// Function to toggle theme and store preference
+function toggleTheme() {
+    const isDarkMode = document.body.classList.toggle(DARK_MODE_CLASS);
+    localStorage.setItem('theme', isDarkMode ? DARK_THEME : LIGHT_THEME);
+    updateIcon(isDarkMode);
+}
+
+// Set theme on load based on saved preference
+document.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('theme');
+    const isDarkMode = savedTheme === DARK_THEME;
+
+    if (isDarkMode) {
+        document.body.classList.add(DARK_MODE_CLASS);
+    }
+    updateIcon(isDarkMode);
+});
+
+// Event listener for the toggle button
+darkModeToggle.addEventListener('click', toggleTheme);
+
   
     /* -- FORM-BUTTON SECTION-- */
   document.getElementById('contact-form').onsubmit = function(event) {
