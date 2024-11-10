@@ -180,26 +180,3 @@ document.getElementById('downloadCvButtonAbout').addEventListener('click', funct
 });
 
 
-/*-----DARK-MODE-ICON-----*/
-const darkModeToggle = document.querySelector('.dark-mode-toggle');
-const darkModeIcon = document.getElementById('darkModeIcon');
-
-// Check for previously saved theme from local storage
-if (localStorage.getItem('theme') === 'dark') {
-    document.body.classList.add('dark-mode');
-    darkModeIcon.classList.replace('uil-moon', 'uil-sun');
-}
-
-// Toggle dark mode on click
-darkModeToggle.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-    
-    if (document.body.classList.contains('dark-mode')) {
-        darkModeIcon.classList.replace('uil-moon', 'uil-sun');
-        localStorage.setItem('theme', 'dark');
-    } else {
-        darkModeIcon.classList.replace('uil-sun', 'uil-moon');
-        localStorage.setItem('theme', 'light');
-    }
-});
-  
