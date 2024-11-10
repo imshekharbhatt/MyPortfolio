@@ -187,7 +187,6 @@ body.dark-mode #darkModeIcon {
 /* ----- WRAPPER DESIGN ----- */
 .wrapper{
     padding-inline: 10vw;
-    backdrop-filter: blur(18px); 
 }
 
 /* ----- FEATURED BOX ----- */
