@@ -135,7 +135,6 @@ document.querySelectorAll('.nav-link').forEach(link => {
 
 /*-----DARK-MODE-ICON-----*/
 const darkModeToggle = document.querySelector('.dark-mode-toggle');
-const darkModeToggle = document.querySelector('.dark-mode-toggle');
 const darkModeIcon = document.getElementById('darkModeIcon');
 
 // Check for previously saved theme from local storage
