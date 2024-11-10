@@ -1,38 +1,20 @@
-/* POPPINS FONT */
+/* ----- POPPINS FONT Link ----- */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-
-/* ABRI FATFACE FONT */
-@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
 
 /* ----- VARIABLES ----- */
 :root{
-    --body-color: #FFFFFF;
-    --color-white: #FFFFFF;
-    --black-color: #000000;
-    --dark-blue: #372461;
+    --body-color: rgb(250, 250, 250);
+    --color-white: rgb(255, 255, 255);
 
     --text-color-second: rgb(68, 68, 68);
     --text-color-third: rgb(30, 159, 171);
 
-    --first-color: #6429EF;
+    --first-color: rgb(110, 87, 224);
     --first-color-hover: rgb(40, 91, 212);
 
     --second-color: rgb(0, 201, 255);
     --third-color: rgb(192, 166, 49);
-    
-    --background-color: #f2f2f2;
-    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-}
-
-/* ----- DARK MODE COLOR VARIABLES ----- */
-body.dark-mode{
-  --black-color: #FFFFFF;
-  --dark-blue: #6429EF;
-  --body-color: #222;
-  --blur-element-color: #555;
-  --background-color: #333333;
-  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+    --first-shadow-color: rgba(0, 0, 0, 0.1);
 
 }
 
@@ -94,9 +76,7 @@ i{
 /* ------- BASE -------- */
 body{
     background: var(--body-color);
-    transition: background-color 0.3s ease, color 0.3s ease;
 }
-
 .container{
     width: 100%;
     position: relative;
@@ -133,7 +113,7 @@ nav{
     top: -15px;
     right: -20px;
     font-size: 5em;
-    color: var(--black-color);
+    color: var(--text-color-second);
 }
 .nav-menu, .nav_menu_list{
     display: flex;
@@ -144,7 +124,7 @@ nav{
 }
 .nav-link{
     text-decoration: none;
-    color: var(--black-color);
+    color: var(--text-color-second);
     font-weight: 500;
     padding-inline: 15px;
     margin-inline: 20px;
@@ -153,21 +133,9 @@ nav{
     display: none;
 }
 .nav-menu-btn i{
-    color: var(--black-color);
     font-size: 28px;
     cursor: pointer;
 }
-#darkModeIcon {
-    color: var(--black-color);
-    font-size: 1.2rem;
-    transition: color 0.3s ease;
-}
-
-/* -----Dark mode moon icon color----- */
-body.dark-mode #darkModeIcon {
-    color: #ffd700;
-}
-
 .active-link{
     position: relative;
     color: var(--first-color);
@@ -184,6 +152,8 @@ body.dark-mode #darkModeIcon {
     background: var(--first-color);
     border-radius: 50%;
 }
+
+
 /* ----- WRAPPER DESIGN ----- */
 .wrapper{
     padding-inline: 10vw;
@@ -218,18 +188,17 @@ body.dark-mode #darkModeIcon {
 .featured-name{
     font-size: 40px;
     font-weight: 600;
-    color: var(--black-color);
+    color: var(--text-color-second);
     margin-block: 20px;
 }
 .typedText{
-   font-weight: 600;
-   text-transform: capitalize;
-   color: var(--first-color);
+    text-transform: capitalize;
+    color: var(--first-color);
 }
 .featured-text-info{
     font-size: 15px;
     margin-bottom: 30px;
-    color: var(--black-color);
+    color: var(--text-color-second);
 }
 .featured-text-btn{
     display: flex;
@@ -247,6 +216,7 @@ body.dark-mode #darkModeIcon {
     margin-top: 5em;
     gap: 30px;
 }
+
 .icon{
     display: flex;
     justify-content: center;
@@ -262,7 +232,7 @@ body.dark-mode #darkModeIcon {
 }
 
 .social-icons .icon a {
-    color: var(--black-color);
+    color: var(--text-color-second);
 }
 
 .social-icons .icon a:hover {
@@ -308,8 +278,8 @@ body.dark-mode #darkModeIcon {
    height: 50px;
    gap: 5px;
    text-decoration: none;
-   color: var(--black-color);
-   background: var(--background-color);
+   color: var(--text-color-second);
+   background: var(--color-white);
    border-radius: 30px;
    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.25);
 }
@@ -339,7 +309,7 @@ body.dark-mode #darkModeIcon {
 }
 .top-header h1{
     font-weight: 600;
-    color: var(--black-color);
+    color: var(--text-color-second);
     margin-bottom: 10px;
 }
 .top-header span{
@@ -348,7 +318,7 @@ body.dark-mode #darkModeIcon {
 h3{
     font-size: 20px;
     font-weight: 600;
-    color: var(--black-color);
+    color: var(--text-color-second);
     margin-bottom: 15px;
 }
 
@@ -361,14 +331,14 @@ h3{
     padding-block: 30px 70px;
     padding-inline: 20px;
     width: 100%;
-    background: var(--background-color);
-    box-shadow: var(--box-shadow);
+    background: var(--color-white);
+    box-shadow: 1px 8px 10px 2px var(--first-shadow-color);
     border-radius: 20px;
 }
 .about-info p{
     text-align: center;
     font-size: 12px;
-    color: var(--black-color);
+    color: #777;
 }
 .about-btn button{
     position: absolute;
@@ -418,19 +388,19 @@ h3{
     flex-direction: column;
     width: 30%;
     height: 250px;
-    background: var(--background-color);
+    background: var(--color-white);
     border-radius: 20px;
-    box-shadow: var(--box-shadow);
+    box-shadow: 1px 8px 10px 2px var(--first-shadow-color);
     overflow: hidden;
 }
 .project-box>i{
     font-size: 50px;
-    color: var(--black-color);
+    color: ;
     margin-bottom: 25px;
 }
 .project-box label{
     font-size: 12px;
-    color: var(--black-color);
+    color: #777;
 }
 .project-box::after, .contact-info::after{
     content: "";
@@ -465,11 +435,11 @@ h3{
     height: 315px;
     background: var(--first-color);
     border-radius: 10px;
-    box-shadow: var(--box-shadow);
+    box-shadow: 1px 8px 10px 2px var(--first-shadow-color);
     overflow: hidden;
 }
 .contact-info>h2{
-    color: var(--black-color);
+    color: var(--color-white);
     margin-bottom: 20px;
 }
 .contact-info>p{
@@ -477,14 +447,14 @@ h3{
     display: flex;
     align-items: center;
     gap: 10px;
-    color: var(--black-color);
+    color: var(--color-white);
     margin-block: 5px;
 }
 .contact-info p>i{
     font-size: 18px;
 }
 .contact-info::after{
-    background: var(--background-color);
+    background: var(--color-white);
 }
 .contact-info:hover.contact-info h2,
 .contact-info:hover.contact-info p,
@@ -532,7 +502,7 @@ textarea{
     color: var(--color-white);
 }
 .form-button>.btn:hover{
-    background: var(--dark-blue);
+    background: #00B5E7;
 }
 .form-button i{
     font-size: 18px;
@@ -546,11 +516,10 @@ footer{
     align-items: center;
     flex-direction: column;
     row-gap: 30px;
-    background: var(--body-color);
+    background: #F8F8F8;
     padding-block: 40px 60px;
 }
 .top-footer p{
-    color: var(--black-color);
     font-size: 18px;
     font-weight: 600;
 }
@@ -562,7 +531,7 @@ footer{
 }
 .footer_menu_list a{
     text-decoration: none;
-    color: var(--black-color);
+    color: var(--text-color-second);
     font-weight: 500;
     margin-inline: 16px;
 }
@@ -572,7 +541,7 @@ footer{
 }
 
 .footer-social-icons .icon a {
-    color: var(--black-color);
+    color: var(--text-color-second);
 }
 
 .footer-social-icons .icon a:hover {
@@ -580,12 +549,8 @@ footer{
 }
 
 .bottom-footer{
-    color: var(--black-color);
     font-size: 14px;
     margin-top: 10px;
-}
-.bottom-footer a{
-  color: var(--dark-blue);
 }
 
 
@@ -598,8 +563,6 @@ footer{
         width: 320px;
         height: 320px;
     }
-}
-
 /* ----- MEDIA QUERY == 900px / RESPONSIVE ----- */
 @media only screen and (max-width: 900px) {
     .nav-button{
@@ -620,7 +583,7 @@ footer{
         right: -100%;
         width: 218px;
         height: 40vh;
-        background: var(--background-color);
+        background: rgba(255, 255, 255, 0.7);
         backdrop-filter: blur(18px);
         box-shadow: -4px 0 10px rgba(0,0,0,0.18);
         border-radius: 18px 0 0 18px;
@@ -643,16 +606,11 @@ footer{
         align-items: center;
         justify-content: center;
     }
-    .nav-icons {
-    display: flex;
-    align-items: center;
-    gap: 20px; 
+    .nav-menu-btn{
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
-
-    .nav-icons .dark-mode-toggle,
-    .nav-icons .nav-menu-btn {
-      margin: 0;
-   }
     .featured-box{
         flex-direction: column;
         justify-content: center;
@@ -699,9 +657,7 @@ footer{
     .project-box{
         width: 80%;
     }
-    .dark-mode-toggle {
-        margin-right: 15px;
-    }
+
 }
 
 /* ----- MEDIA QUERY == 540px / RESPONSIVE ----- */
@@ -719,4 +675,4 @@ footer{
         .input-field{
         width: 100%;
     }
-}
+    }
