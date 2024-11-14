@@ -130,7 +130,8 @@ document.querySelectorAll('.nav-link').forEach(link => {
     })
   }
 
-  window.addEventListener('scroll', scrollActive)const darkModeToggle = document.querySelector('.dark-mode-toggle');
+  window.addEventListener('scroll', scrollActive);
+
 const darkModeIcon = document.getElementById('darkModeIcon');
 const DARK_MODE_CLASS = 'dark-mode';
 const LIGHT_THEME = 'light';
