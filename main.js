@@ -130,10 +130,11 @@ document.querySelectorAll('.nav-link').forEach(link => {
     })
   }
 
-  window.addEventListener('scroll', scrollActive)
+  window.addEventListener('scroll', scrollActive);
+const darkModeToggle = document.querySelector('.dark-mode-toggle');
+// Theme toggle variables
 const darkModeToggle = document.querySelector('.dark-mode-toggle');
 const darkModeIcon = document.getElementById('darkModeIcon');
-
 const DARK_MODE_CLASS = 'dark-mode';
 const LIGHT_THEME = 'light';
 const DARK_THEME = 'dark';
@@ -149,26 +150,32 @@ function updateIcon(isDarkMode) {
     }
 }
 
-// Function to toggle theme and store preference
+
 function toggleTheme() {
     const isDarkMode = document.body.classList.toggle(DARK_MODE_CLASS);
     localStorage.setItem('theme', isDarkMode ? DARK_THEME : LIGHT_THEME);
     updateIcon(isDarkMode);
 }
 
-// Set theme on load based on saved preference
+
 document.addEventListener('DOMContentLoaded', () => {
+   
     const savedTheme = localStorage.getItem('theme');
     const isDarkMode = savedTheme === DARK_THEME;
 
+    // Apply the saved theme right away
     if (isDarkMode) {
         document.body.classList.add(DARK_MODE_CLASS);
+    } else {
+        document.body.classList.remove(DARK_MODE_CLASS); 
     }
+
     updateIcon(isDarkMode);
 });
 
 // Event listener for the toggle button
 darkModeToggle.addEventListener('click', toggleTheme);
+
 
 
     /* -- FORM-BUTTON SECTION-- */
