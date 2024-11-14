@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Event listener for the toggle button
-darkModeToggle.addEventListener('click', toggleTheme);
+darkModeIcon.addEventListener('click', toggleTheme);
 
     /* -- FORM-BUTTON SECTION-- */
   document.getElementById('contact-form').onsubmit = function(event) {
