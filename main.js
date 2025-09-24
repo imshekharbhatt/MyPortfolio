@@ -204,13 +204,13 @@ darkModeIcon.addEventListener('click', toggleTheme);
 
   /* -- DOWNLOAD CV SECTION -- */
   document.getElementById('downloadCvButton').addEventListener('click', function() {
-    window.location.href = 'shekharbhatt-resume.pdf';
+    window.location.href = 'shekhar-bhatt-cv.pdf';
 });
 
 document.getElementById('downloadCvButtonFeatured').addEventListener('click', function() {
-    window.location.href = 'shekharbhatt-resume.pdf';
+    window.location.href = 'shekhar-bhatt-cv.pdf';
 });
 
 document.getElementById('downloadCvButtonAbout').addEventListener('click', function() {
-    window.location.href = 'shekharbhatt-resume.pdf';
+    window.location.href = 'shekhar-bhatt-cv.pdf';
 });
