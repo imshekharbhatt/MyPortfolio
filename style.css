@@ -418,11 +418,17 @@ h3{
     align-items: center;
     flex-direction: column;
     width: 30%;
-    height: 250px;
+    min-height: 250px;
     background: var(--background-color);
     border-radius: 20px;
     box-shadow: var(--box-shadow);
     overflow: hidden;
+    padding: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.project-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 .project-box>i{
     font-size: 50px;
@@ -433,7 +439,9 @@ h3{
     font-size: 12px;
     color: var(--black-color);
 }
-.project-box::after, .contact-info::after{
+
+/* REMOVED: The ::after pseudo-element and related hover effects */
+/* .project-box::after, .contact-info::after{
     content: "";
     position: absolute;
     bottom: -100%;
@@ -452,6 +460,80 @@ h3{
 .project-box:hover.project-box>label{
     color: var(--color-white);
     z-index: 2;
+} */
+
+/* ----- NEW PROJECT LAYOUT STYLES ----- */
+.project-image {
+    width: 100%;
+    height: 160px;
+    overflow: hidden;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.project-box:hover .project-image img {
+    transform: scale(1.05);
+}
+
+.project-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    width: 100%;
+}
+
+.project-content h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+    color: var(--black-color);
+}
+
+.project-content p {
+    color: var(--black-color);
+    line-height: 1.5;
+    margin-bottom: 1.2rem;
+    font-size: 0.9rem;
+}
+
+.project-buttons {
+    display: flex;
+    gap: 0.8rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.project-buttons .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.project-buttons .blue-btn {
+    background: var(--first-color);
+    color: var(--color-white);
+}
+
+.project-buttons .blue-btn:hover {
+    background: var(--first-color-hover);
+}
+
+/* Ensure the original project boxes maintain their styling */
+.project-box:not(:first-child) {
+    padding: 1.5rem;
+}
+
+.project-box:not(:first-child) .project-content {
+    display: none;
 }
 
 /* ----- CONTACT BOX ----- */
@@ -484,7 +566,9 @@ h3{
 .contact-info p>i{
     font-size: 18px;
 }
-.contact-info::after{
+
+/* REMOVED: Contact info hover effect */
+/* .contact-info::after{
     background: var(--background-color);
 }
 .contact-info:hover.contact-info h2,
@@ -492,7 +576,7 @@ h3{
 .contact-info:hover.contact-info i{
     color: #777;
     z-index: 2;
-}
+} */
 
 /* ----- CONTACT FORM ----- */
 .form-control{
@@ -729,7 +813,22 @@ footer{
     .form-inputs{
         flex-direction: column;
     }
-        .input-field{
+    .input-field{
         width: 100%;
     }
-        }
+    
+    /* Mobile adjustments for project boxes */
+    .project-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .project-buttons .btn {
+        width: 100%;
+        max-width: 200px;
+    }
+    
+    .project-image {
+        height: 140px;
+    }
+}
