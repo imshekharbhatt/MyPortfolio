@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="en" class="blue-theme">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elite Dental | Your Smile, Our Priority</title>
+
+    <!-- SEO Meta Tags -->
+    <meta
+      name="description"
+      content="Elite Dental - Gentle dental care for your whole family. State-of-the-art facility with compassionate professionals."
+    />
+    <meta
+      name="keywords"
+      content="dental care, dentist, teeth cleaning, cosmetic dentistry, family dentist"
+    />
+    <meta name="author" content="Elite Dental" />
+
+    <!-- Open Graph Meta Tags -->
+    <meta
+      property="og:title"
+      content="Elite Dental | Gentle Care for Your Smile"
+    />
+    <meta
+      property="og:description"
+      content="Experience comfortable, modern dentistry in a calming environment."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://elitedental.com" />
+    <meta property="og:image" content="assets/images/about-elite-dental.jpg" />
+    <!-- Standard favicon -->
+    <link
+      rel="icon"
+      href="assets/images/favicon/favicon.ico"
+      type="image/x-icon"
+    />
+
+    <!-- PNG favicons -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="assets/images/favicon/favicon-16x16.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/images/favicon/favicon-32x32.png"
+    />
+
+    <!-- Apple Touch Icon (iOS devices) -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/images/favicon/apple-touch-icon.png"
+    />
+
+    <!-- Android Chrome Icons -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="assets/images/favicon/android-chrome-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="assets/images/favicon/android-chrome-512x512.png"
+    />
+
+    <!-- Android/Chrome manifest -->
+    <link rel="manifest" href="assets/images/favicon/site.webmanifest" />
+
+    <!-- Theme color for mobile browsers -->
+    <meta name="theme-color" content="#14b8a6" />
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="style.css" as="style" />
+    <link
+      rel="preload"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      as="style"
+    />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="assets/js/script.js" defer></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <!-- Emergency Banner -->
+    <div
+      class="fixed emergency-banner w-full z-50 bg-red-600 text-white py-3 text-center"
+    >
+      <div class="container mx-auto px-6">
+        <i class="fas fa-exclamation-circle mr-2"></i>
+        <strong>Dental Emergency?</strong>
+        <span class="ml-2"
+          >Call us immediately:
+          <a href="tel:+9779818181818" class="underline font-semibold"
+            >977 981 8181818</a
+          ></span
+        >
+      </div>
+    </div>
+
+    <!-- Header with Navigation -->
+    <header
+      class="mt-12 fixed w-full bg-white/70 backdrop-blur-md shadow-lg z-40 border-b border-teal-100"
+    >
+      <div class="container mx-auto px-6 py-4">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center space-x-2">
+            <i class="fas fa-tooth text-teal-600 text-3xl"></i>
+            <a
+              href="#home"
+              class="text-2xl md:text-3xl font-light text-teal-800 tracking-tight"
+              >Elite<span class="font-semibold">Dental</span></a
+            >
+          </div>
+          <nav class="hidden md:flex space-x-8">
+            <a href="#home" class="nav-link text-teal-800 hover:text-teal-600"
+              >Home</a
+            >
+            <a href="#about" class="nav-link text-teal-800 hover:text-teal-600"
+              >About Us</a
+            >
+            <a
+              href="#services"
+              class="nav-link text-teal-800 hover:text-teal-600"
+              >Services</a
+            >
+            <a href="#team" class="nav-link text-teal-800 hover:text-teal-600"
+              >Team</a
+            >
+            <a
+              href="#why-choose-us"
+              class="nav-link text-teal-800 hover:text-teal-600"
+              >Why Choose Us</a
+            >
+            <a
+              href="#testimonials"
+              class="nav-link text-teal-800 hover:text-teal-600"
+              >Testimonials</a
+            >
+            <a
+              href="#contact"
+              class="nav-link text-teal-800 hover:text-teal-600"
+              >Contact</a
+            >
+          </nav>
+          <div class="flex items-center space-x-4">
+            <a
+              href="tel:+9779819112005"
+              class="hidden md:flex items-center text-teal-600 hover:text-teal-800 focus:outline-none focus:ring-400 focus:ring-teal-300"
+            >
+              <i class="fas fa-phone-alt mr-2"></i>
+              <span>977-9819112005</span>
+            </a>
+            <button
+              id="mobile-menu-button"
+              class="md:hidden text-teal-800 focus:outline-none"
+            >
+              <i class="fas fa-bars text-2xl"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Mobile menu -->
+      <div
+        id="mobile-menu"
+        class="hidden md:hidden bg-white/90 backdrop-blur-md py-2 px-6 shadow-lg border-b border-teal-100"
+      >
+        <div class="flex flex-col space-y-3">
+          <a
+            href="#home"
+            class="nav-link text-teal-800 hover:text-teal-600 py-2"
+            >Home</a
+          >
+          <a
+            href="#about"
+            class="nav-link text-teal-800 hover:text-teal-600 py-2"
+            >About Us</a
+          >
+          <a
+            href="#services"
+            class="nav-link text-teal-800 hover:text-teal-600 py-2"
+            >Services</a
+          >
+          <a
+            href="#team"
+            class="nav-link text-teal-800 hover:text-teal-600 py-2"
+            >Team</a
+          >
+          <a
+            href="#why-choose-us"
+            class="nav-link text-teal-800 hover:text-teal-600 py-2"
+            >Why Choose Us</a
+          >
+          <a
+            href="#testimonials"
+            class="nav-link text-teal-800 hover:text-teal-600 py-2"
+            >Testimonials</a
+          >
+          <a
+            href="#contact"
+            class="nav-link text-teal-800 hover:text-teal-600 py-2"
+            >Contact</a
+          >
+          <a
+            href="tel:+9779819112005"
+            class="flex items-center text-teal-600 hover:text-teal-800 py-2"
+          >
+            <i class="fas fa-phone-alt mr-2"></i>
+            <span>977-9819112005</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section
+      id="home"
+      class="pt-32 pb-20 md:pt-40 md:pb-28 bg-gradient-to-b from-teal-50 to-white relative overflow-hidden"
+    >
+      <div
+        class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none"
+      >
+        <div
+          class="absolute -top-24 -left-24 w-96 h-96 bg-teal-100 rounded-full opacity-50 blur-3xl"
+        ></div>
+        <div
+          class="absolute top-1/2 -right-24 w-96 h-96 bg-teal-100 rounded-full opacity-50 blur-3xl"
+        ></div>
+      </div>
+
+      <div class="container mx-auto px-6 relative">
+        <div class="flex flex-col md:flex-row items-center">
+          <div class="md:w-1/2 mb-10 md:mb-0">
+            <div
+              class="inline-block bg-teal-100 text-teal-800 px-4 py-2 rounded-full text-sm font-medium mb-6 animate-fade-in"
+            >
+              <i class="fas fa-star mr-2"></i>Trusted by 18,000+ Patients
+            </div>
+            <h1
+              class="text-4xl md:text-5xl font-light leading-tight text-teal-800 mb-6 animate-slide-up"
+            >
+              Elite Dental Care <br />
+              <span
+                class="font-semibold bg-gradient-to-r from-blue-600 to-teal-200 bg-clip-text text-transparent"
+                >For Your Whole Family</span
+              >
+            </h1>
+            <p
+              class="text-lg text-gray-600 mb-8 max-w-lg animate-slide-up delay-100"
+            >
+              Experience modern, comfortable dentistry in a calming environment
+              designed to put you at ease. Our state-of-the-art clinic combines
+              advanced technology with compassionate, personalized care for you
+              and your family.
+            </p>
+            <div
+              class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 animate-slide-up delay-200"
+            >
+              <a
+                href="#contact"
+                class="bg-teal-600 hover:bg-teal-700 text-white px-8 py-4 rounded-full text-center font-medium transition duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center focus:outline-none focus:ring-400 focus:ring-teal-300"
+              >
+                <i class="fas fa-calendar-check mr-2"></i>
+                Book an Appointment
+              </a>
+              <a
+                href="tel:+11234567890"
+                class="border-2 border-teal-300 text-teal-600 hover:bg-teal-50 px-8 py-4 rounded-full text-center font-medium transition duration-300 transform hover:scale-105 flex items-center justify-center focus:outline-none focus:ring-400 focus:ring-teal-300"
+              >
+                <i class="fas fa-phone-alt mr-2"></i>
+                Call Now
+              </a>
+            </div>
+            <div
+              class="mt-8 flex items-center space-x-6 animate-fade-in delay-300"
+            >
+              <div class="flex items-center">
+                <i class="fas fa-check-circle text-teal-600 mr-2"></i>
+                <span class="text-gray-600">No Insurance? No Stress</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-check-circle text-teal-600 mr-2"></i>
+                <span class="text-gray-600"
+                  >Same-Day Emergency Dental Care</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="md:w-1/2 flex justify-center">
+            <div
+              class="relative w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl group"
+            >
+              <div
+                class="absolute -inset-6 md:-inset-8 rounded-[2.5rem] bg-gradient-to-br from-blue-100 via-white to-blue-200 shadow-2xl z-0 rotate-3"
+              ></div>
+              <div
+                class="absolute -inset-2 rounded-[2rem] bg-white/60 backdrop-blur-md z-0"
+              ></div>
+              <img
+                src="assets/images/dental-with-xray.jpg"
+                alt="Dentist with patient"
+                class="rounded-[2rem] shadow-xl border-4 border-white w-full h-auto object-cover relative z-10 group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+              />
+              <div class="absolute -bottom-7 -right-7 z-20">
+                <div
+                  class="bg-white/80 backdrop-blur-md border border-teal-100 shadow-xl rounded-2xl px-6 py-3 flex items-center gap-3"
+                >
+                  <span
+                    class="bg-teal-100 rounded-full p-2 flex items-center justify-center"
+                  >
+                    <i class="fas fa-smile-beam text-teal-600 text-2xl"></i>
+                  </span>
+                  <span>
+                    <span
+                      class="block font-bold text-teal-800 text-lg lg:text-xl"
+                      >1800+</span
+                    >
+                    <span class="block text-xs text-gray-600"
+                      >Satisfied Smiles</span
+                    >
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section
+      id="about"
+      class="py-20 bg-gradient-to-b from-white via-teal-50 to-white relative overflow-hidden"
+    >
+      <div
+        class="absolute top-0 right-0 w-96 h-96 bg-teal-100 rounded-full opacity-30 blur-3xl"
+      ></div>
+      <div
+        class="absolute bottom-0 left-0 w-96 h-96 bg-teal-100 rounded-full opacity-30 blur-3xl"
+      ></div>
+
+      <div class="container mx-auto px-4 sm:px-6 relative">
+        <div
+          class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 xl:gap-32"
+        >
+          <div
+            class="w-full lg:w-1/2 flex justify-center mb-8 lg:mb-0 order-2 lg:order-1"
+          >
+            <div
+              class="relative w-full max-w-xs sm:max-w-md md:max-w-md lg:max-w-lg xl:max-w-xl group"
+            >
+              <div
+                class="absolute -inset-4 lg:-inset-6 rounded-[2rem] bg-gradient-to-br from-blue-100 via-white to-blue-200 shadow-2xl z-0"
+              ></div>
+              <div
+                class="absolute -inset-1 rounded-[1.7rem] border-4 border-white z-0"
+              ></div>
+              <img
+                src="assets/images/about-elite-dental.jpg"
+                alt="About Elite Dental"
+                class="rounded-[1.5rem] shadow-xl border-0 w-full h-auto object-cover relative z-10 group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+              />
+              <div class="absolute -top-5 -left-5 z-20">
+                <div
+                  class="bg-white/70 backdrop-blur-md border border-teal-100 shadow-lg rounded-full w-14 h-14 flex items-center justify-center"
+                >
+                  <i class="fas fa-heartbeat text-teal-600 text-2xl"></i>
+                </div>
+              </div>
+              <div class="absolute -bottom-5 -right-5 z-20">
+                <div
+                  class="bg-white/80 backdrop-blur-md border border-teal-100 shadow-xl rounded-2xl px-6 py-3 flex items-center gap-3"
+                >
+                  <span
+                    class="bg-teal-100 rounded-full p-2 flex items-center justify-center"
+                  >
+                    <i class="fas fa-award text-teal-600 text-xl"></i>
+                  </span>
+                  <span>
+                    <span
+                      class="block font-bold text-teal-800 text-base lg:text-lg"
+                      >18+ Years</span
+                    >
+                    <span class="block text-xs text-gray-600">Experience</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="w-full lg:w-1/2 flex flex-col justify-center order-1 lg:order-2"
+          >
+            <div class="text-center lg:text-left relative">
+              <div
+                class="flex items-center justify-center lg:justify-start mb-4"
+              >
+                <span
+                  class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-teal-100 mr-4"
+                >
+                  <i class="fas fa-users text-teal-600 text-2xl"></i>
+                </span>
+                <h2 class="text-3xl font-light text-teal-800 mb-0">
+                  Welcome to <span class="font-semibold">Elite Dental</span>
+                </h2>
+              </div>
+              <div class="w-20 h-1 bg-teal-500 mx-auto lg:mx-0 mb-8"></div>
+              <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+                At Elite Dental, we are more than a dental clinic—we are your
+                trusted partner in oral health. We provide a carefully selected
+                range of premium dental products alongside our gentle and
+                comprehensive dental care. Our skilled team is committed to
+                making every visit comfortable and stress-free, while ensuring
+                you have access to the best products to maintain your oral
+                health at home.
+              </p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+              <div
+                class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-teal-100"
+              >
+                <div
+                  class="bg-teal-100 w-12 h-12 rounded-full flex items-center justify-center mb-4 shadow-sm"
+                >
+                  <i class="fas fa-microscope text-teal-600 text-xl"></i>
+                </div>
+                <h4
+                  class="font-semibold text-teal-800 mb-2 text-base lg:text-lg"
+                >
+                  Premium Dental Facility
+                </h4>
+                <p class="text-gray-600 text-sm">
+                  Our clinic utilizes modern equipment and advanced technology
+                  to deliver the highest standard of dental care.
+                </p>
+              </div>
+              <div
+                class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-teal-100"
+              >
+                <div
+                  class="bg-teal-100 w-12 h-12 rounded-full flex items-center justify-center mb-4 shadow-sm"
+                >
+                  <i class="fas fa-user-md text-teal-600 text-xl"></i>
+                </div>
+                <h4
+                  class="font-semibold text-teal-800 mb-2 text-base lg:text-lg"
+                >
+                  Our Expert Team
+                </h4>
+                <p class="text-gray-600 text-sm">
+                  Our experienced and compassionate dental professionals are
+                  dedicated to providing personalized care and ensuring every
+                  visit is comfortable and stress-free.
+                </p>
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
+              <a
+                href="#services"
+                class="bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-full text-center font-medium transition duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl focus:outline-none focus:ring-400 focus:ring-teal-300"
+                >Our Services</a
+              >
+              <a
+                href="#team"
+                class="border-2 border-teal-300 text-teal-600 hover:bg-teal-50 px-6 py-3 rounded-full text-center font-medium transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-400 focus:ring-teal-300"
+                >Meet Our Team</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section
+      id="services"
+      class="pt-32 pb-20 md:pt-40 md:pb-28 bg-gradient-to-b from-teal-50 to-white relative overflow-hidden"
+    >
+      <div class="container mx-auto px-6">
+        <!-- Section Header -->
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-light text-teal-800 mb-4">
+            Our <span class="font-semibold">Dental Services</span>
+          </h2>
+          <div class="w-20 h-1 bg-teal-500 mx-auto rounded"></div>
+          <p class="mt-6 text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            Comprehensive dental care for patients of all ages, delivered with
+            the latest technology and gentle, patient-focused techniques.
+          </p>
+        </div>
+
+        <!-- Services Grid -->
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12"
+        >
+          <!-- Preventive Care -->
+          <div
+            class="service-card group bg-white rounded-2xl shadow-md hover:shadow-xl transition transform hover:-translate-y-2"
+          >
+            <div class="flex justify-center mt-8">
+              <span
+                class="bg-gradient-to-tr from-teal-500 to-teal-300 text-white p-6 rounded-full shadow-lg group-hover:animate-bounce"
+              >
+                <i class="fa-solid fa-tooth text-3xl"></i>
+              </span>
+            </div>
+            <div
+              class="divider h-1 w-16 bg-teal-200 mx-auto my-6 rounded"
+            ></div>
+            <div class="content p-8 text-center">
+              <h3 class="text-xl font-semibold text-teal-800 mb-3">
+                Preventive Care
+              </h3>
+              <p class="text-gray-600 leading-relaxed mb-6">
+                Regular check-ups, professional cleanings, and patient education
+                to maintain optimal oral health and prevent future dental
+                issues.
+              </p>
+              <button
+                class="learn-more-btn enhanced text-indigo-600 font-medium hover:text-white transition hover:bg-indigo-600 round px-4 py-2"
+                aria-label="Learn more about Preventive Care"
+                data-service="preventive"
+              >
+                Learn more
+                <i
+                  class="fa-solid fa-arrow-right transition-transform group-hover:translate-x-1"
+                ></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Cosmetic Dentistry -->
+          <div
+            class="service-card group bg-white rounded-2xl shadow-md hover:shadow-xl transition transform hover:-translate-y-2"
+          >
+            <div class="flex justify-center mt-8">
+              <span
+                class="bg-gradient-to-tr from-pink-500 to-pink-300 text-white p-6 rounded-full shadow-lg group-hover:animate-bounce"
+              >
+                <i class="fa-solid fa-wand-magic-sparkles text-3xl"></i>
+              </span>
+            </div>
+            <div
+              class="divider h-1 w-16 bg-pink-200 mx-auto my-6 rounded"
+            ></div>
+            <div class="content p-8 text-center">
+              <h3 class="text-xl font-semibold text-pink-700 mb-3">
+                Cosmetic Dentistry
+              </h3>
+              <p class="text-gray-600 leading-relaxed mb-6">
+                Whitening, veneers, and smile makeovers to enhance your natural
+                beauty and boost confidence.
+              </p>
+              <button
+                class="learn-more-btn enhanced text-indigo-600 font-medium hover:text-white transition hover:bg-indigo-600 round px-4 py-2"
+                aria-label="Learn more about Cosmetic Dentistry"
+                data-service="cosmetic"
+              >
+                Learn more
+                <i
+                  class="fa-solid fa-arrow-right transition-transform group-hover:translate-x-1"
+                ></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Restorative Services -->
+          <div
+            class="service-card group bg-white rounded-2xl shadow-md hover:shadow-xl transition transform hover:-translate-y-2"
+          >
+            <div class="flex justify-center mt-8">
+              <span
+                class="bg-gradient-to-tr from-indigo-500 to-indigo-300 text-white p-6 rounded-full shadow-lg group-hover:animate-bounce"
+              >
+                <i class="fa-solid fa-teeth-open text-3xl"></i>
+              </span>
+            </div>
+            <div
+              class="divider h-1 w-16 bg-indigo-200 mx-auto my-6 rounded"
+            ></div>
+            <div class="content p-8 text-center">
+              <h3 class="text-xl font-semibold text-indigo-700 mb-3">
+                Restorative Services
+              </h3>
+              <p class="text-gray-600 leading-relaxed mb-6">
+                Fillings, crowns, bridges, and implants to restore the function,
+                health, and appearance of damaged teeth.
+              </p>
+              <button
+                class="learn-more-btn enhanced text-indigo-600 font-medium hover:text-white transition hover:bg-indigo-600 round px-4 py-2"
+                aria-label="Learn more about Restorative Services"
+                data-service="restorative"
+              >
+                Learn more
+                <i
+                  class="fa-solid fa-arrow-right transition-transform group-hover:translate-x-1"
+                ></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Professional Team Section -->
+    <section id="team" class="py-20 bg-gray-50">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl font-light text-teal-800 mb-4">
+            Meet Our <span class="font-semibold">Dental Experts</span>
+          </h2>
+          <div class="w-20 h-1 bg-teal-500 mx-auto"></div>
+          <p class="mt-6 text-gray-600 max-w-2xl mx-auto">
+            Dedicated professionals committed to exceptional oral care and
+            patient comfort.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Dentist 1 -->
+          <div class="team-card bg-white rounded-lg overflow-hidden shadow-lg">
+            <div
+              class="h-64 bg-cover bg-center"
+              style="background-image: url('assets/images/chief-dentist.jpg')"
+            ></div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold text-teal-800">
+                Dr. Olivia Martinez
+              </h3>
+              <p class="text-gray-500 mb-4">Chief Dentist</p>
+              <p class="text-gray-600 text-sm">
+                Over 12 years of experience specializing in cosmetic and
+                restorative dentistry.
+              </p>
+            </div>
+          </div>
+
+          <!-- Dentist 2 -->
+          <div class="team-card bg-white rounded-lg overflow-hidden shadow-lg">
+            <div
+              class="h-64 bg-cover bg-center"
+              style="background-image: url('assets/images/oral-surgeon.jpg')"
+            ></div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold text-teal-800">Dr. Ethan Lee</h3>
+              <p class="text-gray-500 mb-4">Oral Surgeon</p>
+              <p class="text-gray-600 text-sm">
+                Expert in advanced surgical procedures, ensuring comfort and
+                precision.
+              </p>
+            </div>
+          </div>
+
+          <!-- Hygienist -->
+          <div class="team-card bg-white rounded-lg overflow-hidden shadow-lg">
+            <div
+              class="h-64 bg-cover bg-center"
+              style="
+                background-image: url('assets/images/dental-hygienist.jpg');
+              "
+            ></div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold text-teal-800">Sophia Patel</h3>
+              <p class="text-gray-500 mb-4">Dental Hygienist</p>
+              <p class="text-gray-600 text-sm">
+                Provides expert cleaning, preventive care, and personalized oral
+                hygiene advice.
+              </p>
+            </div>
+          </div>
+
+          <!-- Assistant -->
+          <div class="team-card bg-white rounded-lg overflow-hidden shadow-lg">
+            <div
+              class="h-64 bg-cover bg-center"
+              style="
+                background-image: url('assets/images/dental-assistant.jpg');
+              "
+            ></div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold text-teal-800">Liam Thompson</h3>
+              <p class="text-gray-500 mb-4">Dental Assistant</p>
+              <p class="text-gray-600 text-sm">
+                Ensures smooth procedures with care, attention, and a calming
+                presence.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Why Choose Us Section -->
+    <section id="why-choose-us" class="py-20 bg-gray-50">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-14">
+          <h2 class="text-3xl font-light text-teal-800 mb-4">
+            Why <span class="font-semibold">Why Choose Us?</span>
+          </h2>
+          <div class="w-20 h-1 bg-teal-500 mx-auto mb-6"></div>
+          <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+            Experience exceptional dental care and premium products, tailored to
+            your comfort and oral health.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Professional Team -->
+          <div
+            class="bg-white/70 backdrop-blur-md rounded-2xl shadow-xl border border-teal-100 p-8 flex flex-col items-center text-center hover:shadow-2xl transition-all duration-300"
+          >
+            <div
+              class="bg-teal-100 rounded-full w-16 h-16 flex items-center justify-center mb-4 shadow-md"
+            >
+              <i class="fas fa-user-md text-2xl text-teal-600"></i>
+            </div>
+            <h4 class="font-semibold text-teal-800 mb-2 text-lg">
+              Expert Team
+            </h4>
+            <p class="text-gray-600 text-sm">
+              Our certified professionals ensure safe, effective, and
+              personalized dental care.
+            </p>
+          </div>
+          <!-- Advanced Technology -->
+          <div
+            class="bg-white/70 backdrop-blur-md rounded-2xl shadow-xl border border-teal-100 p-8 flex flex-col items-center text-center hover:shadow-2xl transition-all duration-300"
+          >
+            <div
+              class="bg-teal-100 rounded-full w-16 h-16 flex items-center justify-center mb-4 shadow-md"
+            >
+              <i class="fas fa-tooth text-2xl text-teal-600"></i>
+            </div>
+            <h4 class="font-semibold text-teal-800 mb-2 text-lg">
+              Advanced Technology
+            </h4>
+            <p class="text-gray-600 text-sm">
+              We utilize the latest dental equipment and techniques for
+              accurate, comfortable treatments.
+            </p>
+          </div>
+          <!-- Personalized Care -->
+          <div
+            class="bg-white/70 backdrop-blur-md rounded-2xl shadow-xl border border-teal-100 p-8 flex flex-col items-center text-center hover:shadow-2xl transition-all duration-300"
+          >
+            <div
+              class="bg-teal-100 rounded-full w-16 h-16 flex items-center justify-center mb-4 shadow-md"
+            >
+              <i class="fas fa-heart text-2xl text-teal-600"></i>
+            </div>
+            <h4 class="font-semibold text-teal-800 mb-2 text-lg">
+              Personalized Care
+            </h4>
+            <p class="text-gray-600 text-sm">
+              Every treatment plan is customized to meet your specific dental
+              needs and preferences.
+            </p>
+          </div>
+          <!-- Fast & Convenient -->
+          <div
+            class="bg-white/70 backdrop-blur-md rounded-2xl shadow-xl border border-teal-100 p-8 flex flex-col items-center text-center hover:shadow-2xl transition-all duration-300"
+          >
+            <div
+              class="bg-teal-100 rounded-full w-16 h-16 flex items-center justify-center mb-4 shadow-md"
+            >
+              <i class="fas fa-clock text-2xl text-teal-600"></i>
+            </div>
+            <h4 class="font-semibold text-teal-800 mb-2 text-lg">
+              Fast & Convenient
+            </h4>
+            <p class="text-gray-600 text-sm">
+              Efficient appointments, quick service, and a hassle-free
+              experience for all patients.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 bg-gray-50">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl font-light text-teal-800 mb-4">
+            Patient <span class="font-semibold">Testimonials</span>
+          </h2>
+          <div class="w-20 h-1 bg-teal-500 mx-auto"></div>
+          <p class="mt-6 text-gray-600 max-w-2xl mx-auto">
+            Hear what our patients say about their experience at Elite Dental.
+          </p>
+        </div>
+
+        <!-- Testimonials Grid for Desktop -->
+        <div class="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+          <!-- Testimonial 1 -->
+          <div
+            class="bg-white rounded-2xl shadow-lg p-8 border border-teal-50 hover:shadow-xl transition-all duration-300 h-full flex flex-col"
+          >
+            <div class="text-teal-600 text-3xl mb-4">
+              <i class="fas fa-quote-left opacity-50"></i>
+            </div>
+            <p class="text-gray-600 mb-6 leading-relaxed flex-grow">
+              "Elite Dental transformed my smile and my confidence. The team is
+              incredibly professional and makes every visit comfortable. I
+              actually look forward to my dental appointments now!"
+            </p>
+            <div class="flex text-yellow-400 text-lg mb-3">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <div>
+              <h4 class="font-semibold text-teal-800 text-lg">
+                Jennifer Martinez
+              </h4>
+              <p class="text-gray-500 text-sm">Patient for 5 years</p>
+            </div>
+          </div>
+
+          <!-- Testimonial 2 -->
+          <div
+            class="bg-white rounded-2xl shadow-lg p-8 border border-teal-50 hover:shadow-xl transition-all duration-300 h-full flex flex-col"
+          >
+            <div class="text-teal-600 text-3xl mb-4">
+              <i class="fas fa-quote-left opacity-50"></i>
+            </div>
+            <p class="text-gray-600 mb-6 leading-relaxed flex-grow">
+              "As someone with dental anxiety, I was nervous about my first
+              visit. The staff was so understanding and gentle. They explained
+              everything step by step. Highly recommend!"
+            </p>
+            <div class="flex text-yellow-400 text-lg mb-3">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <div>
+              <h4 class="font-semibold text-teal-800 text-lg">Robert Chen</h4>
+              <p class="text-gray-500 text-sm">New Patient</p>
+            </div>
+          </div>
+
+          <!-- Testimonial 3 -->
+          <div
+            class="bg-white rounded-2xl shadow-lg p-8 border border-teal-50 hover:shadow-xl transition-all duration-300 h-full flex flex-col"
+          >
+            <div class="text-teal-600 text-3xl mb-4">
+              <i class="fas fa-quote-left opacity-50"></i>
+            </div>
+            <p class="text-gray-600 mb-6 leading-relaxed flex-grow">
+              "We bring our entire family here. The kids love the friendly
+              environment, and we appreciate the thorough care. The dental store
+              is a bonus - we get all our oral care products here."
+            </p>
+            <div class="flex text-yellow-400 text-lg mb-3">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <div>
+              <h4 class="font-semibold text-teal-800 text-lg">Sarah Johnson</h4>
+              <p class="text-gray-500 text-sm">Family Patient</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile Testimonial Slider -->
+        <div class="md:hidden relative">
+          <div class="testimonial-slider overflow-hidden rounded-2xl">
+            <div
+              class="testimonial-track flex transition-transform duration-500"
+              id="testimonial-track"
+            >
+              <!-- Testimonial slides will be populated by JavaScript -->
+            </div>
+          </div>
+
+          <!-- Navigation Arrows -->
+          <button
+            class="testimonial-nav absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/80 backdrop-blur-sm rounded-full w-10 h-10 flex items-center justify-center shadow-lg z-10"
+            id="testimonial-prev"
+          >
+            <i class="fas fa-chevron-left text-teal-600"></i>
+          </button>
+          <button
+            class="testimonial-nav absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/80 backdrop-blur-sm rounded-full w-10 h-10 flex items-center justify-center shadow-lg z-10"
+            id="testimonial-next"
+          >
+            <i class="fas fa-chevron-right text-teal-600"></i>
+          </button>
+
+          <!-- Dots Indicator -->
+          <div
+            class="flex justify-center mt-6 space-x-2"
+            id="testimonial-dots"
+          ></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Appointment Section -->
+    <section class="py-20 bg-teal-700 text-white">
+      <div class="container mx-auto px-6 text-center">
+        <h2 class="text-3xl font-light mb-6">
+          Ready for a <span class="font-semibold">Healthier Smile?</span>
+        </h2>
+        <p class="text-lg mb-8 max-w-2xl mx-auto">
+          Schedule your appointment today and experience gentle, personalized
+          dental care.
+        </p>
+        <a
+          href="#contact"
+          class="btn-primary inline-block bg-teal-600 hover:bg-teal-700 text-white px-8 py-4 rounded-full text-center font-medium transition duration-300 shadow-md hover:shadow-xl transform hover:scale-105"
+          >Request an Appointment</a
+        >
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-50">
+      <div class="container mx-auto px-6">
+        <div class="flex flex-col md:flex-row">
+          <div class="md:w-1/2 mb-10 md:mb-0">
+            <h2 class="text-3xl font-light text-teal-800 mb-6">
+              Contact <span class="font-semibold">Elite Dental</span>
+            </h2>
+            <div class="w-20 h-1 bg-teal-500 mb-6"></div>
+
+            <div class="space-y-6">
+              <div class="flex items-start">
+                <div class="bg-teal-100 p-3 rounded-full mr-4 flex-shrink-0">
+                  <i class="fas fa-map-marker-alt text-teal-600"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium text-teal-800 mb-1">Our Location</h4>
+                  <p class="text-gray-600">
+                    Elite Dental Care, Park-mode Street, Dhangadhi,
+                    Sudurpashchim, Nepal
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start">
+                <div class="bg-teal-100 p-3 rounded-full mr-4 flex-shrink-0">
+                  <i class="fas fa-phone-alt text-teal-600"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium text-teal-800 mb-1">Phone Number</h4>
+                  <p class="text-gray-600">+977 9819112005</p>
+                </div>
+              </div>
+
+              <div class="flex items-start">
+                <div class="bg-teal-100 p-3 rounded-full mr-4 flex-shrink-0">
+                  <i class="fas fa-envelope text-teal-600"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium text-teal-800 mb-1">Email Address</h4>
+                  <p class="text-gray-600">info@elitedental.com</p>
+                </div>
+              </div>
+
+              <div class="flex items-start">
+                <div class="bg-teal-100 p-3 rounded-full mr-4 flex-shrink-0">
+                  <i class="fas fa-clock text-teal-600"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium text-teal-800 mb-1">Office Hours</h4>
+                  <p class="text-gray-600">
+                    Sunday - Thursday: 10:00 AM - 6:00 PM<br />
+                    Friday: 10:00 AM - 2:00 PM<br />
+                    Saturday: Closed
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Google Maps Integration -->
+            <div class="mt-8 rounded-lg overflow-hidden shadow-lg">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3023.9503398796587!2d80.58683!3d28.7082!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3995a557f46e7db7:0x31f4f89d393b316d!2sNisarga%20Hospital%2C%20Dhangadhi%2C%20Nepal!5e0!3m2!1sen!2sus!4v1625078352916"
+                width="100%"
+                height="300"
+                style="border: 0"
+                allowfullscreen=""
+                loading="lazy"
+                class="rounded-lg"
+                title="Elite Dental Care Location on Google Maps"
+              ></iframe>
+            </div>
+          </div>
+
+          <div class="md:w-1/2 md:pl-10">
+            <form
+              id="appointment-form"
+              class="bg-white p-8 rounded-lg shadow-md"
+            >
+              <h3 class="text-xl font-semibold text-teal-800 mb-6">
+                Book an Appointment
+              </h3>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label for="name" class="block text-gray-700 mb-2"
+                    >Full Name</label
+                  >
+                  <input
+                    type="text"
+                    id="name"
+                    class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-transparent"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label for="email" class="block text-gray-700 mb-2"
+                    >Email</label
+                  >
+                  <input
+                    type="email"
+                    id="email"
+                    class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-transparent"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label for="phone" class="block text-gray-700 mb-2"
+                    >Phone Number</label
+                  >
+                  <input
+                    type="tel"
+                    id="phone"
+                    class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-transparent"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label for="service" class="block text-gray-700 mb-2"
+                    >Service</label
+                  >
+                  <select
+                    id="service"
+                    class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-transparent"
+                  >
+                    <option value="checkup">Regular Checkup</option>
+                    <option value="cleaning">Dental Cleaning</option>
+                    <option value="whitening">Teeth Whitening</option>
+                    <option value="filling">Filling</option>
+                    <option value="crown">Crown</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label for="appointment-date" class="block text-gray-700 mb-2"
+                    >Preferred Date</label
+                  >
+                  <input
+                    type="date"
+                    id="appointment-date"
+                    min=""
+                    class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-transparent"
+                    required
+                  />
+                </div>
+                <div>
+                  <label for="appointment-time" class="block text-gray-700 mb-2"
+                    >Preferred Time</label
+                  >
+                  <select
+                    id="appointment-time"
+                    class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-transparent"
+                  >
+                    <option value="morning">
+                      Morning (8:00 AM - 12:00 PM)
+                    </option>
+                    <option value="afternoon">
+                      Afternoon (1:00 PM - 5:00 PM)
+                    </option>
+                  </select>
+                </div>
+
+                <div class="md:col-span-2">
+                  <label for="message" class="block text-gray-700 mb-2"
+                    >Message (Optional)</label
+                  >
+                  <textarea
+                    id="message"
+                    rows="4"
+                    class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-transparent"
+                  ></textarea>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                class="btn-primary w-full bg-teal-600 hover:bg-teal-700 text-white py-3 rounded-lg mt-6 font-medium transition duration-300"
+              >
+                Request Appointment
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer
+      class="bg-gradient-to-br from-teal-900/90 via-teal-800/90 to-teal-900/90 text-white py-14 mt-20 shadow-2xl border-t-4 border-teal-300/40 backdrop-blur-md"
+    >
+      <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+          <div class="md:col-span-2 flex flex-col justify-between">
+            <div class="flex items-center space-x-2 mb-4">
+              <i class="fas fa-tooth text-3xl"></i>
+              <span class="text-2xl font-light"
+                >Elite<span class="font-semibold">Dental</span></span
+              >
+            </div>
+            <p class="text-teal-100 mb-6 max-w-xs">
+              Delivering exceptional dental care and a reliable dental store in
+              a relaxing, patient-focused environment since 2010.
+            </p>
+            <div class="flex space-x-4 mt-2">
+              <a href="#" class="text-teal-100 hover:text-white text-2xl"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a href="#" class="text-teal-100 hover:text-white text-2xl"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="#" class="text-teal-100 hover:text-white text-2xl"
+                ><i class="fab fa-twitter"></i
+              ></a>
+              <a href="#" class="text-teal-100 hover:text-white text-2xl"
+                ><i class="fab fa-linkedin-in"></i
+              ></a>
+            </div>
+          </div>
+          <div>
+            <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="#home"
+                  class="text-teal-100 hover:text-white flex items-center gap-2"
+                  ><i class="fas fa-home"></i> Home</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#about"
+                  class="text-teal-100 hover:text-white flex items-center gap-2"
+                  ><i class="fas fa-user"></i> About Us</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#services"
+                  class="text-teal-100 hover:text-white flex items-center gap-2"
+                  ><i class="fas fa-tooth"></i> Services</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#team"
+                  class="text-teal-100 hover:text-white flex items-center gap-2"
+                  ><i class="fas fa-users"></i> Our Team</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#why-choose-us"
+                  class="text-teal-100 hover:text-white flex items-center gap-2"
+                  ><i class="fas fa-star"></i> Why Choose Us</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#testimonials"
+                  class="text-teal-100 hover:text-white flex items-center gap-2"
+                  ><i class="fas fa-comment-dots"></i> Testimonials</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#contact"
+                  class="text-teal-100 hover:text-white flex items-center gap-2"
+                  ><i class="fas fa-envelope"></i> Contact</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-lg font-semibold mb-4">Contact Info</h4>
+            <ul class="space-y-3 text-teal-100">
+              <li class="flex items-start gap-3">
+                <i class="fas fa-map-marker-alt mt-1"></i>Elite Dental Care,
+                Park-mode Street, Dhangadhi, Sudurpashchim, Nepal
+              </li>
+              <li class="flex items-center gap-3">
+                <i class="fas fa-phone-alt"></i> +977 9819112005
+              </li>
+              <li class="flex items-center gap-3">
+                <i class="fas fa-envelope"></i> info@elitedental.com
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div
+          class="border-t border-teal-500 mt-10 pt-8 text-center text-teal-100"
+        >
+          <p>&copy; 2025 Elite Dental Care. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a
+      href="#home"
+      id="back-to-top"
+      class="fixed bottom-8 right-8 bg-teal-600 text-white p-4 rounded-full shadow-lg hover:bg-teal-700 transition duration-300 hidden flex items-center justify-center w-14 h-14"
+    >
+      <i class="fas fa-arrow-up text-xl"></i>
+    </a>
+
+    <!-- Service Blog Modal (hidden by default) -->
+    <div
+      id="service-modal"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm hidden"
+    >
+      <div
+        class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full mx-4 p-8 relative animate-fade-in-up"
+      >
+        <button
+          id="close-service-modal"
+          class="absolute top-4 right-4 text-teal-600 hover:text-teal-800 text-2xl focus:outline-none"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+        <div id="service-modal-content">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading Screen -->
+    <div
+      id="loading-screen"
+      class="fixed inset-0 bg-white z-50 flex items-center justify-center"
+    >
+      <div class="animate-pulse flex flex-col items-center">
+        <i class="fas fa-tooth text-teal-600 text-5xl mb-4"></i>
+        <div class="text-teal-600 text-xl">Elite Dental Care</div>
+      </div>
+    </div>
+
+    <!-- Cookie Consent Banner -->
+    <div
+      id="cookie-consent"
+      class="fixed bottom-0 left-0 right-0 bg-teal-800 text-white p-4 hidden z-50"
+    >
+      <div
+        class="container mx-auto flex flex-col md:flex-row items-center justify-between"
+      >
+        <p class="mb-4 md:mb-0">
+          We use cookies to enhance your experience. By continuing to visit this
+          site, you agree to our use of cookies.
+        </p>
+        <button
+          id="accept-cookies"
+          class="bg-white text-teal-800 px-6 py-2 rounded-lg font-semibold"
+        >
+          Accept
+        </button>
+      </div>
+    </div>
+  </body>
+</html>
