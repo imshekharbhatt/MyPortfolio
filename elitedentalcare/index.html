@@ -28,6 +28,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://elitedental.com" />
     <meta property="og:image" content="assets/images/about-elite-dental.jpg" />
+
     <!-- Standard favicon -->
     <link
       rel="icon"
@@ -84,17 +85,37 @@
       as="style"
     />
 
+    <!-- International Telephone Input -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
+    <!-- EmailJS -->
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
+    ></script>
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom Script -->
     <script src="assets/js/script.js" defer></script>
+
+    <!-- Font Awesome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
     />
 
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/style.css" />
   </head>
   <body>
@@ -1023,35 +1044,40 @@
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label for="name" class="block text-gray-700 mb-2"
-                    >Full Name</label
+                    >Full Name *</label
                   >
                   <input
                     type="text"
                     id="name"
+                    name="name"
                     class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-transparent"
+                    placeholder="Enter Full Name"
                     required
                   />
                 </div>
 
                 <div>
                   <label for="email" class="block text-gray-700 mb-2"
-                    >Email</label
+                    >Email *</label
                   >
                   <input
                     type="email"
                     id="email"
+                    name="email"
                     class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-transparent"
+                    placeholder="Enter Email Address"
                     required
                   />
                 </div>
 
                 <div>
                   <label for="phone" class="block text-gray-700 mb-2"
-                    >Phone Number</label
+                    >Phone Number *</label
                   >
                   <input
                     type="tel"
                     id="phone"
+                    name="phone"
                     class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-transparent"
                     required
                   />
@@ -1059,28 +1085,32 @@
 
                 <div>
                   <label for="service" class="block text-gray-700 mb-2"
-                    >Service</label
+                    >Service *</label
                   >
                   <select
                     id="service"
+                    name="service"
                     class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-transparent"
+                    required
                   >
-                    <option value="checkup">Regular Checkup</option>
-                    <option value="cleaning">Dental Cleaning</option>
-                    <option value="whitening">Teeth Whitening</option>
-                    <option value="filling">Filling</option>
-                    <option value="crown">Crown</option>
-                    <option value="other">Other</option>
+                    <option value="">Select a service</option>
+                    <option value="Regular Checkup">Regular Checkup</option>
+                    <option value="Dental Cleaning">Dental Cleaning</option>
+                    <option value="Teeth Whitening">Teeth Whitening</option>
+                    <option value="Filling">Filling</option>
+                    <option value="Crown">Crown</option>
+                    <option value="Other">Other</option>
                   </select>
                 </div>
 
                 <div>
                   <label for="appointment-date" class="block text-gray-700 mb-2"
-                    >Preferred Date</label
+                    >Preferred Date *</label
                   >
                   <input
                     type="date"
                     id="appointment-date"
+                    name="appointment-date"
                     min=""
                     class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-transparent"
                     required
@@ -1088,16 +1118,19 @@
                 </div>
                 <div>
                   <label for="appointment-time" class="block text-gray-700 mb-2"
-                    >Preferred Time</label
+                    >Preferred Time *</label
                   >
                   <select
                     id="appointment-time"
+                    name="appointment-time"
                     class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-transparent"
+                    required
                   >
-                    <option value="morning">
+                    <option value="">Select a time slot</option>
+                    <option value="Morning (8:00 AM - 12:00 PM)">
                       Morning (8:00 AM - 12:00 PM)
                     </option>
-                    <option value="afternoon">
+                    <option value="Afternoon (1:00 PM - 5:00 PM)">
                       Afternoon (1:00 PM - 5:00 PM)
                     </option>
                   </select>
@@ -1109,14 +1142,17 @@
                   >
                   <textarea
                     id="message"
+                    name="message"
                     rows="4"
                     class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-transparent"
+                    placeholder="Any specific requirements or notes..."
                   ></textarea>
                 </div>
               </div>
 
               <button
                 type="submit"
+                id="submit-btn"
                 class="btn-primary w-full bg-teal-600 hover:bg-teal-700 text-white py-3 rounded-lg mt-6 font-medium transition duration-300"
               >
                 Request Appointment

@@ -704,6 +704,10 @@ footer {
   }
 }
 
+.iti {
+  width: 100% !important;
+}
+
 @media (max-width: 640px) {
   .emergency-banner {
     font-size: 0.9rem;

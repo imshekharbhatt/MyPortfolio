@@ -1,5 +1,3 @@
-// script.js - Complete JavaScript for Elite Dental
-
 // ===== DOM CONTENT LOADED =====
 document.addEventListener("DOMContentLoaded", function () {
   initializeWebsite();
@@ -407,95 +405,330 @@ function initServiceModals() {
   }
 }
 
+// ===== EMAILJS CONFIGURATION =====
+const EMAILJS_CONFIG = {
+  SERVICE_ID: "service_7fof808",
+  TEMPLATE_ID: "template_r9j4nzh",
+};
+
+// Secure EmailJS initialization
+function initializeEmailJS() {
+  try {
+    const PUBLIC_KEY = "5-B9BcUW12F-NeLqZ";
+    if (PUBLIC_KEY && PUBLIC_KEY.length > 10) {
+      emailjs.init(PUBLIC_KEY);
+      return true;
+    }
+    return false;
+  } catch (error) {
+    console.error("EmailJS initialization failed:", error);
+    return false;
+  }
+}
+
+// ===== VALIDATION UTILITIES =====
+function validateEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
+function validatePhone(phone) {
+  const cleanPhone = phone.replace(/\D/g, "");
+  const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+  return phoneRegex.test(cleanPhone) && cleanPhone.length >= 10;
+}
+
+function validateAppointmentDate(dateString) {
+  const selectedDate = new Date(dateString);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  // Check if date is in the past
+  if (selectedDate < today) {
+    return "Appointment date cannot be in the past";
+  }
+
+  // Check if date is too far in the future (2 years max)
+  const twoYearsFromNow = new Date();
+  twoYearsFromNow.setFullYear(twoYearsFromNow.getFullYear() + 2);
+  if (selectedDate > twoYearsFromNow) {
+    return "Appointment date cannot be more than two years in advance";
+  }
+
+  return null;
+}
+
+function validateBusinessHours(timeString) {
+  if (!timeString) return "Please select a time";
+
+  const time = timeString.split(":");
+  const hours = parseInt(time[0]);
+  const minutes = parseInt(time[1]);
+
+  // Business hours: 9 AM - 6 PM
+  if (hours < 9 || hours >= 18) {
+    return "Appointments are available between 9:00 AM and 6:00 PM";
+  }
+
+  return null;
+}
+
+function sanitizeInput(input) {
+  if (typeof input !== "string") return input;
+  return input
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "")
+    .replace(/javascript:/gi, "")
+    .replace(/on\w+=/gi, "")
+    .substring(0, 1000); // Limit length
+}
+
 // ===== APPOINTMENT FORM =====
 function initAppointmentForm() {
   const form = document.getElementById("appointment-form");
-
   if (!form) return;
+
+  // Initialize EmailJS
+  const emailjsReady = initializeEmailJS();
+  if (!emailjsReady) {
+    console.warn("EmailJS not properly initialized");
+  }
+
+  // Set minimum date
+  setMinDateForAppointment();
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    // Get form data
+    // Get and sanitize form data
     const formData = {
-      name: document.getElementById("name").value,
-      email: document.getElementById("email").value,
-      phone: document.getElementById("phone").value,
-      service: document.getElementById("service").value,
+      name: sanitizeInput(document.getElementById("name").value.trim()),
+      email: sanitizeInput(document.getElementById("email").value.trim()),
+      phone: sanitizeInput(document.getElementById("phone").value.trim()),
+      service: sanitizeInput(document.getElementById("service").value),
       date: document.getElementById("appointment-date").value,
       time: document.getElementById("appointment-time").value,
-      message: document.getElementById("message").value,
+      message: sanitizeInput(document.getElementById("message").value.trim()),
     };
 
-    // Basic validation
-    if (!formData.name || !formData.email || !formData.phone) {
+    // Validate required fields
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.phone ||
+      !formData.service ||
+      !formData.date ||
+      !formData.time
+    ) {
       showNotification("Please fill in all required fields.", "error");
       return;
     }
 
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
+    // Validate email
+    if (!validateEmail(formData.email)) {
       showNotification("Please enter a valid email address.", "error");
       return;
     }
 
-    // Phone validation
-    const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
-    const cleanPhone = formData.phone.replace(/\D/g, "");
-    if (!phoneRegex.test(cleanPhone)) {
-      showNotification("Please enter a valid phone number.", "error");
+    // Validate phone
+    if (!validatePhone(formData.phone)) {
+      showNotification(
+        "Please enter a valid phone number with at least 10 digits.",
+        "error"
+      );
       return;
     }
 
-    // Simulate form submission
-    simulateFormSubmission(formData);
+    // Validate date
+    const dateError = validateAppointmentDate(formData.date);
+    if (dateError) {
+      showNotification(dateError, "error");
+      return;
+    }
+
+    // Validate time
+    const timeError = validateBusinessHours(formData.time);
+    if (timeError) {
+      showNotification(timeError, "error");
+      return;
+    }
+
+    // Submit form
+    submitAppointmentForm(formData);
   });
 
-  // Format phone number as user types
+  //Validate phone number with intl-tel-input
   const phoneInput = document.getElementById("phone");
-  if (phoneInput) {
-    phoneInput.addEventListener("input", function (e) {
-      let value = e.target.value.replace(/\D/g, "");
-      if (value.length > 0) {
-        value = value.match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-        e.target.value = !value[2]
-          ? value[1]
-          : "(" + value[1] + ") " + value[2] + (value[3] ? "-" + value[3] : "");
-      }
+
+  if (phoneInput && !phoneInput.intlTelInputData) {
+    const iti = window.intlTelInput(phoneInput, {
+      initialCountry: "np",
+      preferredCountries: ["np", "in", "us", "gb", "ca"],
+      separateDialCode: true,
+      nationalMode: false,
+      autoPlaceholder: "polite",
+      utilsScript:
+        "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
     });
+
+    // Mark as initialized to prevent duplicate initialization
+    phoneInput.intlTelInputData = iti;
+
+    // Force set Nepal and prevent auto-switching
+    setTimeout(() => {
+      iti.setCountry("np");
+    }, 100);
+
+    // Enhanced country change handler
+    let userSelectedCountry = "np";
+    phoneInput.addEventListener("countrychange", function () {
+      userSelectedCountry = iti.getSelectedCountryData().iso2;
+      console.log("Country changed to:", userSelectedCountry);
+    });
+
+    // Prevent auto-country switching on input
+    phoneInput.addEventListener(
+      "input",
+      debounce(function () {
+        const currentCountry = iti.getSelectedCountryData().iso2;
+        if (currentCountry !== userSelectedCountry) {
+          iti.setCountry(userSelectedCountry);
+        }
+      }, 300)
+    );
   }
 }
 
-function simulateFormSubmission(formData) {
-  // Show loading state
+// ===== FORM SUBMISSION =====
+function submitAppointmentForm(formData) {
   const submitButton = document.querySelector(
     '#appointment-form button[type="submit"]'
   );
   const originalText = submitButton.textContent;
+
+  // Show loading state
   submitButton.innerHTML =
     '<i class="fas fa-spinner fa-spin mr-2"></i> Sending...';
   submitButton.disabled = true;
 
-  // Simulate API call
-  setTimeout(() => {
-    // Show success message
-    showNotification(
-      "Thank you! Your appointment request has been sent. We will contact you shortly to confirm.",
-      "success"
+  // Show loading message if exists
+  const loadingMessage = document.getElementById("loading-message");
+  if (loadingMessage) {
+    loadingMessage.classList.remove("hidden");
+  }
+
+  // Hide any existing messages
+  const successMessage = document.getElementById("success-message");
+  const errorMessage = document.getElementById("error-message");
+  if (successMessage) successMessage.classList.add("hidden");
+  if (errorMessage) errorMessage.classList.add("hidden");
+
+  // Check if EmailJS is properly configured
+  if (!EMAILJS_CONFIG.SERVICE_ID || !EMAILJS_CONFIG.TEMPLATE_ID) {
+    handleFormError(
+      submitButton,
+      originalText,
+      loadingMessage,
+      "Email service not configured. Please contact website administrator."
     );
+    return;
+  }
 
-    // Reset form
-    document.getElementById("appointment-form").reset();
-    setMinDateForAppointment();
+  // Prepare template parameters for EmailJS
+  const templateParams = {
+    from_name: formData.name,
+    from_email: formData.email,
+    phone: formData.phone,
+    service: formData.service,
+    date: formData.date,
+    time: formData.time,
+    message: formData.message || "No additional message provided",
+    to_email: "whoknowskyu@gmail.com",
+    business_name: "Elite Dental",
+    submission_date: new Date().toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    }),
+    submission_time: new Date().toLocaleTimeString("en-US"),
+  };
 
-    // Restore button
-    submitButton.innerHTML = originalText;
-    submitButton.disabled = false;
+  // Send email using EmailJS
+  emailjs
+    .send(EMAILJS_CONFIG.SERVICE_ID, EMAILJS_CONFIG.TEMPLATE_ID, templateParams)
+    .then(function (response) {
+      console.log("SUCCESS!", response.status, response.text);
+      handleFormSuccess(
+        submitButton,
+        originalText,
+        loadingMessage,
+        successMessage
+      );
+    })
+    .catch(function (error) {
+      console.log("FAILED...", error);
+      handleFormError(
+        submitButton,
+        originalText,
+        loadingMessage,
+        "Sorry, there was an error sending your request. Please try again or contact us directly at +977 9819112005"
+      );
+    });
+}
 
-    // For demo purposes, log the form data
-    console.log("Appointment Request:", formData);
-  }, 2000);
+function handleFormSuccess(
+  submitButton,
+  originalText,
+  loadingMessage,
+  successMessage
+) {
+  // Show success message
+  showNotification(
+    "Thank you! Your appointment request has been sent. We will contact you shortly to confirm.",
+    "success"
+  );
+
+  // Show success message in form if exists
+  if (successMessage) {
+    successMessage.classList.remove("hidden");
+  }
+
+  // Reset form
+  document.getElementById("appointment-form").reset();
+  setMinDateForAppointment();
+
+  // Restore button
+  submitButton.innerHTML = originalText;
+  submitButton.disabled = false;
+  if (loadingMessage) loadingMessage.classList.add("hidden");
+
+  // Hide success message after 8 seconds
+  setTimeout(() => {
+    if (successMessage) successMessage.classList.add("hidden");
+  }, 8000);
+
+  // Track conversion (if analytics available)
+  if (typeof gtag !== "undefined") {
+    gtag("event", "appointment_request", {
+      event_category: "engagement",
+      event_label: "form_submission",
+    });
+  }
+}
+
+function handleFormError(submitButton, originalText, loadingMessage, errorMsg) {
+  // Show error message
+  showNotification(errorMsg, "error");
+
+  // Show error message in form if exists
+  const errorMessage = document.getElementById("error-message");
+  if (errorMessage) {
+    errorMessage.classList.remove("hidden");
+  }
+
+  // Restore button
+  submitButton.innerHTML = originalText;
+  submitButton.disabled = false;
+  if (loadingMessage) loadingMessage.classList.add("hidden");
 }
 
 function setMinDateForAppointment() {
@@ -505,12 +738,41 @@ function setMinDateForAppointment() {
     const minDate = today.toISOString().split("T")[0];
     dateInput.setAttribute("min", minDate);
 
-    // Set default to tomorrow
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    const tomorrowFormatted = tomorrow.toISOString().split("T")[0];
-    dateInput.value = tomorrowFormatted;
+    // Set max date to 2 years from now
+    const twoYearsFromNow = new Date();
+    twoYearsFromNow.setFullYear(twoYearsFromNow.getFullYear() + 2);
+    const maxDate = twoYearsFromNow.toISOString().split("T")[0];
+    dateInput.setAttribute("max", maxDate);
   }
+}
+
+// ===== UTILITY FUNCTIONS =====
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
+
+// Initialize when DOM is loaded
+document.addEventListener("DOMContentLoaded", function () {
+  initAppointmentForm();
+});
+
+// Export for testing purposes (if needed)
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = {
+    validateEmail,
+    validatePhone,
+    validateAppointmentDate,
+    validateBusinessHours,
+    sanitizeInput,
+  };
 }
 
 // ===== COOKIE CONSENT =====
