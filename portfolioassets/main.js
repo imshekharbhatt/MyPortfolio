@@ -1,3 +1,78 @@
+// ----- DOWNLOAD MANAGER -----
+class DownloadManager {
+  constructor() {
+    this.downloadButtons = [
+      "downloadCvButton",
+      "downloadCvButtonFeatured",
+      "downloadCvButtonAbout",
+      "downloadCvButtonFooter",
+    ];
+    this.init();
+  }
+
+  init() {
+    this.setupEventListeners();
+  }
+
+  setupEventListeners() {
+    this.downloadButtons.forEach((buttonId) => {
+      const button = document.getElementById(buttonId);
+      if (button) {
+        button.addEventListener("click", (e) => this.handleDownload(e));
+
+        // Add keyboard support
+        button.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            this.handleDownload(e);
+          }
+        });
+      }
+    });
+  }
+
+  handleDownload(event) {
+    event.preventDefault();
+    this.downloadCV();
+
+    // Track download event
+    this.trackDownload();
+  }
+
+  downloadCV() {
+    try {
+      // Create a temporary link for download
+      const link = document.createElement("a");
+      link.href = "portfolioassets/documents/shekhar-bhatt-cv.pdf";
+      link.download = "Shekhar-Bhatt-CV.pdf";
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+
+      // Add link to DOM, click it, and remove it
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error("Download failed:", error);
+
+      // Fallback: Open in new tab
+      window.open("portfolioassets/documents/shekhar-bhatt-cv.pdf", "_blank");
+    }
+  }
+
+  trackDownload() {
+    // Track download event for analytics
+    console.log("CV download initiated");
+
+    if (typeof gtag !== "undefined") {
+      gtag("event", "download", {
+        event_category: "cv",
+        event_label: "Shekhar Bhatt CV",
+      });
+    }
+  }
+}
+
 // ----- MODERN PORTFOLIO MANAGER -----
 class PortfolioApp {
   constructor() {
@@ -18,6 +93,7 @@ class PortfolioApp {
       theme: ThemeManager,
       animations: AnimationManager,
       contact: ContactManager,
+      download: DownloadManager, // Added Download Manager
     };
 
     Object.entries(modules).forEach(([name, Module]) => {
@@ -159,6 +235,7 @@ class NavigationManager {
     }
   }
 }
+
 // ----- SCROLL MANAGER -----
 class ScrollManager {
   constructor() {
