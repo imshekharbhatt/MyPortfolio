@@ -2301,6 +2301,11 @@ body.dark-mode .form-textarea:-webkit-autofill:focus {
     font-size: 2.2rem;
   }
 
+   .image {
+    width: 130px;
+    height: 130px;
+  }
+
   .project-grid {
     grid-template-columns: 1fr;
   }
