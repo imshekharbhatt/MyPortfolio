@@ -2036,7 +2036,7 @@ body.dark-mode .form-textarea:-webkit-autofill:focus {
   pointer-events: none;
 }
 
-/* ----- ENHANCED MEDIA QUERIES ----- */
+/* ----- MEDIA QUERIES ----- */
 @media only screen and (max-width: 1024px) {
   .featured-text {
     padding: 0;
@@ -2127,8 +2127,8 @@ body.dark-mode .form-textarea:-webkit-autofill:focus {
   }
 
   .image {
-    width: 160px;
-    height: 160px;
+    width: 150px;
+    height: 150px;
   }
 
   .row {
