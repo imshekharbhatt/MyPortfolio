@@ -2054,6 +2054,18 @@ body.dark-mode .form-textarea:-webkit-autofill:focus {
   .project-grid {
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   }
+
+  .footer-content {
+    gap: 40px;
+  }
+
+  .footer-links {
+    gap: 40px;
+  }
+
+  .footer-column {
+    min-width: 140px;
+  }
 }
 
 @media only screen and (max-width: 900px) {
@@ -2157,14 +2169,42 @@ body.dark-mode .form-textarea:-webkit-autofill:focus {
     width: 100%;
   }
 
+  .modern-footer {
+    padding: 40px 0 20px;
+  }
+
   .footer-content {
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     gap: 40px;
   }
 
+  .footer-brand {
+    flex: 1 1 100%;
+    min-width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
   .footer-links {
-    width: 100%;
+    flex: 1 1 100%;
     justify-content: space-between;
+    gap: 30px;
+  }
+
+  .footer-column {
+    flex: 1;
+    min-width: 140px;
+    text-align: center;
+  }
+
+  .footer-column h4::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .footer-column a:hover {
+    padding-left: 0;
   }
 
   .wrapper {
@@ -2288,9 +2328,24 @@ body.dark-mode .form-textarea:-webkit-autofill:focus {
     grid-template-columns: 1fr;
   }
 
+  .footer-content {
+    gap: 30px;
+  }
+
   .footer-links {
-    flex-direction: column;
-    gap: 40px;
+    gap: 30px;
+  }
+
+  .footer-column {
+    min-width: 120px;
+  }
+
+  .footer-brand h3 {
+    font-size: 1.8rem;
+  }
+
+  .footer-brand p {
+    font-size: 1rem;
   }
 }
 
@@ -2422,9 +2477,50 @@ body.dark-mode .form-textarea:-webkit-autofill:focus {
   .newsletter-form input {
     min-width: 100%;
   }
+
+  .footer-links {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 25px;
+  }
+
+  .footer-column {
+    flex: 1 1 calc(50% - 25px);
+    min-width: calc(50% - 25px);
+    text-align: center;
+  }
+
+  .footer-column h4 {
+    font-size: 1rem;
+    margin-bottom: 15px;
+  }
+
+  .footer-column li {
+    margin-bottom: 10px;
+  }
+
+  .footer-column a {
+    font-size: 0.9rem;
+  }
+
+  .footer-bottom {
+    margin-top: 40px;
+    font-size: 0.9rem;
+  }
 }
 
-/* Enhanced focus styles for accessibility */
+@media only screen and (max-width: 360px) {
+  .footer-links {
+    gap: 20px;
+  }
+
+  .footer-column {
+    flex: 1 1 100%;
+    min-width: 100%;
+  }
+}
+
+/* Focus styles for accessibility */
 .btn:focus-visible,
 .nav-link:focus-visible,
 .form-input:focus-visible,

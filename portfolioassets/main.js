@@ -1,4 +1,64 @@
-// ----- NAVIGATION BAR FUNCTION -----
+// ----- MODERN PORTFOLIO MANAGER -----
+class PortfolioApp {
+  constructor() {
+    this.modules = new Map();
+    this.init();
+  }
+
+  init() {
+    this.initializeModules();
+    this.setupGlobalHandlers();
+    console.log("🚀 Portfolio initialized");
+  }
+
+  initializeModules() {
+    const modules = {
+      navigation: NavigationManager,
+      scroll: ScrollManager,
+      theme: ThemeManager,
+      animations: AnimationManager,
+      contact: ContactManager,
+    };
+
+    Object.entries(modules).forEach(([name, Module]) => {
+      try {
+        this.modules.set(name, new Module());
+      } catch (error) {
+        console.warn(`Module ${name} failed:`, error);
+      }
+    });
+  }
+
+  setupGlobalHandlers() {
+    // Performance: passive scroll listeners
+    const options = { passive: true, capture: true };
+
+    window.addEventListener(
+      "scroll",
+      () => {
+        this.modules.get("scroll")?.handleScroll();
+      },
+      options
+    );
+
+    window.addEventListener(
+      "resize",
+      () => {
+        this.modules.get("navigation")?.handleResize();
+      },
+      options
+    );
+
+    // Error boundary
+    window.addEventListener("error", (e) => console.error("Global error:", e));
+  }
+
+  getModule(name) {
+    return this.modules.get(name);
+  }
+}
+
+// ----- MODERN NAVIGATION -----
 class NavigationManager {
   constructor() {
     this.menuBtn = document.getElementById("myNavMenu");
@@ -99,842 +159,454 @@ class NavigationManager {
     }
   }
 }
-
-// ----- SCROLL MANAGEMENT -----
+// ----- SCROLL MANAGER -----
 class ScrollManager {
   constructor() {
-    this.navHeader = document.getElementById("header");
-    this.backToTopBtn = document.getElementById("backToTop");
-    this.sections = document.querySelectorAll("section[id]");
-    this.navLinks = document.querySelectorAll(".nav-link");
+    this.header = document.getElementById("header");
+    this.backToTop = document.getElementById("backToTop");
     this.init();
   }
 
   init() {
     this.setupEventListeners();
     this.setupScrollSpy();
+    this.handleScroll(); // Initial call
   }
 
   setupEventListeners() {
-    let scrollTimeout;
-    window.addEventListener("scroll", () => {
-      // Throttle scroll events
-      if (!scrollTimeout) {
-        scrollTimeout = setTimeout(() => {
-          this.handleHeaderShadow();
-          this.toggleBackToTopButton();
-          this.updateActiveNavLink();
-          scrollTimeout = null;
-        }, 10);
-      }
-    });
-
-    // Back to top functionality
-    if (this.backToTopBtn) {
-      this.backToTopBtn.addEventListener("click", () => this.scrollToTop());
-    }
+    this.backToTop?.addEventListener("click", () => this.scrollToTop());
   }
 
-  handleHeaderShadow() {
-    if (!this.navHeader) return;
-
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-    if (scrollTop > 50) {
-      this.navHeader.style.boxShadow = "var(--box-shadow)";
-      this.navHeader.style.height = "70px";
-      this.navHeader.style.lineHeight = "70px";
-    } else {
-      this.navHeader.style.boxShadow = "none";
-      this.navHeader.style.height = "80px"; // Updated to match new header height
-      this.navHeader.style.lineHeight = "80px";
-    }
+  handleScroll() {
+    this.updateHeader();
+    this.toggleBackToTop();
+    this.updateActiveSection();
   }
 
-  toggleBackToTopButton() {
-    if (!this.backToTopBtn) return;
+  updateHeader() {
+    if (!this.header) return;
 
-    if (window.pageYOffset > 300) {
-      this.backToTopBtn.classList.add("visible");
-    } else {
-      this.backToTopBtn.classList.remove("visible");
-    }
+    const scrollY = window.scrollY;
+    const shouldShrink = scrollY > 50;
+
+    this.header.style.cssText = shouldShrink
+      ? `box-shadow: var(--box-shadow); height: 70px; line-height: 70px; backdrop-filter: blur(20px)`
+      : `box-shadow: none; height: 80px; line-height: 80px; backdrop-filter: blur(10px)`;
+  }
+
+  toggleBackToTop() {
+    if (!this.backToTop) return;
+
+    this.backToTop.classList.toggle("visible", window.scrollY > 300);
   }
 
   scrollToTop() {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   setupScrollSpy() {
-    let ticking = false;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            this.setActiveNavLink(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.5, rootMargin: "-20% 0px" }
+    );
 
-    const updateActiveLink = () => {
-      const scrollY = window.pageYOffset;
-      const headerHeight = this.navHeader?.offsetHeight || 80;
-
-      this.sections.forEach((section) => {
-        const sectionHeight = section.offsetHeight;
-        const sectionTop = section.offsetTop - headerHeight - 50;
-        const sectionId = section.getAttribute("id");
-
-        if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-          this.setActiveNavLink(sectionId);
-        }
-      });
-
-      ticking = false;
-    };
-
-    window.addEventListener("scroll", () => {
-      if (!ticking) {
-        requestAnimationFrame(updateActiveLink);
-        ticking = true;
-      }
+    document.querySelectorAll("section[id]").forEach((section) => {
+      observer.observe(section);
     });
   }
 
   setActiveNavLink(sectionId) {
-    // Remove active class from all links
-    this.navLinks.forEach((link) => {
-      link.classList.remove("active-link");
-    });
-
-    // Add active class to current link
-    const activeLink = document.querySelector(
-      `.nav-link[href="#${sectionId}"]`
-    );
-    if (activeLink) {
-      activeLink.classList.add("active-link");
-    }
-  }
-
-  updateActiveNavLink() {}
-}
-
-// ----- TYPING EFFECT -----
-class TypingEffect {
-  constructor() {
-    this.typedTextElement = document.querySelector(".typedText");
-    this.typingEffect = null;
-    this.init();
-  }
-
-  init() {
-    if (this.typedTextElement && typeof Typed !== "undefined") {
-      this.typingEffect = new Typed(".typedText", {
-        strings: [
-          "Student",
-          "Developer",
-          "Programmer",
-          "Tech Enthusiast",
-          "Problem Solver",
-        ],
-        loop: true,
-        typeSpeed: 80,
-        backSpeed: 50,
-        backDelay: 2000,
-        startDelay: 500,
-        smartBackspace: true,
-        showCursor: true,
-        cursorChar: "|",
-      });
-    } else if (this.typedTextElement) {
-      this.typedTextElement.textContent = "Developer";
-    }
-  }
-
-  destroy() {
-    if (this.typingEffect) {
-      this.typingEffect.destroy();
-    }
-  }
-}
-
-// ----- SKILLS ANIMATION -----
-class SkillsAnimation {
-  constructor() {
-    this.skillsSection = document.getElementById("skills");
-    this.hasAnimated = false;
-    this.init();
-  }
-
-  init() {
-    if (this.skillsSection) {
-      this.setupIntersectionObserver();
-    }
-  }
-
-  setupIntersectionObserver() {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !this.hasAnimated) {
-            this.animateSkills();
-            this.hasAnimated = true;
-          }
-        });
-      },
-      {
-        threshold: 0.3,
-        rootMargin: "0px 0px -50px 0px",
-      }
-    );
-
-    observer.observe(this.skillsSection);
-  }
-
-  animateSkills() {
-    const skillProgresses = document.querySelectorAll(".skill-progress");
-
-    skillProgresses.forEach((progress, index) => {
-      const width = progress.getAttribute("data-width") || "0%";
-      setTimeout(() => {
-        progress.style.width = width;
-      }, index * 150);
+    document.querySelectorAll(".nav-link").forEach((link) => {
+      link.classList.toggle(
+        "active-link",
+        link.getAttribute("href") === `#${sectionId}`
+      );
     });
   }
 
-  reset() {
-    this.hasAnimated = false;
+  updateActiveSection() {
+    // Additional scroll-based updates can go here
   }
 }
 
-// ----- DARK MODE MANAGER -----
-class DarkModeManager {
+// ----- THEME MANAGER -----
+class ThemeManager {
   constructor() {
-    this.darkModeIcon = document.getElementById("darkModeIcon");
-    this.DARK_MODE_CLASS = "dark-mode";
-    this.LIGHT_THEME = "light";
-    this.DARK_THEME = "dark";
+    this.toggle = document.getElementById("darkModeToggle");
+    this.icon = document.getElementById("darkModeIcon");
     this.init();
   }
 
   init() {
-    if (this.darkModeIcon) {
-      this.setupEventListeners();
-      this.setInitialTheme();
-    }
+    this.setInitialTheme();
+    this.setupEventListeners();
+  }
+
+  setInitialTheme() {
+    const saved = localStorage.getItem("portfolio-theme");
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+    const isDark = saved ? saved === "dark" : prefersDark;
+
+    this.setTheme(isDark, false);
   }
 
   setupEventListeners() {
-    this.darkModeIcon.addEventListener("click", () => this.toggleTheme());
+    this.toggle?.addEventListener("click", () => this.toggleTheme());
 
-    // Listen for system theme changes
+    // System theme change listener
     window
       .matchMedia("(prefers-color-scheme: dark)")
       .addEventListener("change", (e) => {
-        if (!localStorage.getItem("theme")) {
-          this.setTheme(e.matches);
+        if (!localStorage.getItem("portfolio-theme")) {
+          this.setTheme(e.matches, true);
         }
       });
   }
 
-  setInitialTheme() {
-    const savedTheme = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
-    const isDarkMode = savedTheme
-      ? savedTheme === this.DARK_THEME
-      : prefersDark;
-
-    this.setTheme(isDarkMode);
-    this.saveThemePreference(isDarkMode);
-  }
-
   toggleTheme() {
-    const isDarkMode = document.body.classList.toggle(this.DARK_MODE_CLASS);
-    this.setTheme(isDarkMode);
-    this.saveThemePreference(isDarkMode);
+    const isDark = !document.body.classList.contains("dark-mode");
+    this.setTheme(isDark, true);
   }
 
-  setTheme(isDarkMode) {
-    if (isDarkMode) {
-      document.body.classList.add(this.DARK_MODE_CLASS);
-      this.updateIcon(true);
-    } else {
-      document.body.classList.remove(this.DARK_MODE_CLASS);
-      this.updateIcon(false);
+  setTheme(isDark, animate = true) {
+    document.body.classList.toggle("dark-mode", isDark);
+
+    if (animate) {
+      document.body.style.transition = "all 0.3s ease";
+      setTimeout(() => (document.body.style.transition = ""), 300);
     }
 
-    this.updateThemeColor(isDarkMode);
+    this.updateIcon(isDark);
+    this.updateMetaTheme(isDark);
+    localStorage.setItem("portfolio-theme", isDark ? "dark" : "light");
   }
 
-  updateIcon(isDarkMode) {
-    if (isDarkMode) {
-      this.darkModeIcon.classList.remove("uil-moon");
-      this.darkModeIcon.classList.add("uil-sun");
-      this.darkModeIcon.style.color = "#ffd700";
-      this.darkModeIcon.setAttribute("aria-label", "Switch to light mode");
-    } else {
-      this.darkModeIcon.classList.remove("uil-sun");
-      this.darkModeIcon.classList.add("uil-moon");
-      this.darkModeIcon.style.color = "";
-      this.darkModeIcon.setAttribute("aria-label", "Switch to dark mode");
-    }
+  updateIcon(isDark) {
+    if (!this.icon) return;
+
+    this.icon.className = isDark ? "uil uil-sun" : "uil uil-moon";
+    this.icon.style.color = isDark ? "#ffd700" : "";
   }
 
-  updateThemeColor(isDarkMode) {
+  updateMetaTheme(isDark) {
     const themeColor = document.querySelector('meta[name="theme-color"]');
     if (themeColor) {
-      themeColor.setAttribute("content", isDarkMode ? "#0a0a0a" : "#6429ef");
+      themeColor.content = isDark ? "#0a0a0a" : "#6429ef";
     }
-  }
-
-  saveThemePreference(isDarkMode) {
-    localStorage.setItem(
-      "theme",
-      isDarkMode ? this.DARK_THEME : this.LIGHT_THEME
-    );
   }
 }
 
-// ----- CONTACT FORM MANAGER -----
-class ContactFormManager {
+// ----- ANIMATION MANAGER -----
+class AnimationManager {
   constructor() {
-    this.contactForm = document.getElementById("contact-form");
     this.init();
   }
 
   init() {
-    if (this.contactForm) {
+    this.setupTypingEffect();
+    this.setupSkillsAnimation();
+    this.setupScrollReveal();
+  }
+
+  setupTypingEffect() {
+    const typedElement = document.querySelector(".typedText");
+    if (!typedElement || typeof Typed === "undefined") return;
+
+    new Typed(".typedText", {
+      strings: [
+        "Programmer",
+        "Problem Solver",
+        "Engineering Student",
+        "Full-Stack Developer",
+      ],
+      typeSpeed: 70,
+      backSpeed: 40,
+      backDelay: 2500,
+      loop: true,
+      showCursor: true,
+      cursorChar: "|",
+    });
+  }
+
+  setupSkillsAnimation() {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            this.animateSkills();
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    const skillsSection = document.getElementById("skills");
+    if (skillsSection) observer.observe(skillsSection);
+  }
+
+  animateSkills() {
+    document.querySelectorAll(".skill-progress").forEach((progress, index) => {
+      setTimeout(() => {
+        progress.style.width = progress.dataset.width || "0%";
+      }, index * 100);
+    });
+  }
+
+  setupScrollReveal() {
+    if (typeof ScrollReveal !== "undefined") {
+      const sr = ScrollReveal({
+        distance: "40px",
+        duration: 800,
+        easing: "cubic-bezier(0.5, 0, 0, 1)",
+        mobile: true,
+      });
+
+      sr.reveal(".featured-badge, .featured-name", { delay: 100 });
+      sr.reveal(".featured-text-info, .featured-text-btn", { delay: 200 });
+      sr.reveal(".featured-image", { delay: 300, origin: "right" });
+      sr.reveal(".about-info, .about-stats", { interval: 100 });
+      sr.reveal(".skill-category, .project-card", { interval: 150 });
+    }
+  }
+}
+
+// ----- CONTACT MANAGER -----
+class ContactManager {
+  constructor() {
+    this.form = document.getElementById("contact-form");
+    this.init();
+  }
+
+  init() {
+    if (this.form) {
       this.setupEventListeners();
+      this.setupValidation();
     }
   }
 
   setupEventListeners() {
-    this.contactForm.addEventListener("submit", (event) =>
-      this.handleSubmit(event)
-    );
+    this.form.addEventListener("submit", (e) => this.handleSubmit(e));
 
-    // Add input validation
-    this.contactForm.querySelectorAll("input, textarea").forEach((input) => {
+    // Real-time validation
+    this.form.querySelectorAll("input, textarea").forEach((input) => {
       input.addEventListener("blur", () => this.validateField(input));
-      input.addEventListener("input", () => this.clearFieldError(input));
+      input.addEventListener("input", () => this.clearError(input));
     });
+  }
+
+  setupValidation() {
+    this.form.setAttribute("novalidate", "true");
   }
 
   validateField(field) {
     const value = field.value.trim();
     let isValid = true;
-    let errorMessage = "";
+    let message = "";
+
+    if (!field.required && !value) return true;
 
     switch (field.type) {
       case "email":
-        if (!value) {
+        if (!this.isValidEmail(value)) {
           isValid = false;
-          errorMessage = "Email is required";
-        } else if (!this.isValidEmail(value)) {
-          isValid = false;
-          errorMessage = "Please enter a valid email address";
+          message = "Valid email required";
         }
         break;
       case "text":
-        if (!value) {
+        if (field.id === "name" && value.length < 2) {
           isValid = false;
-          errorMessage = "This field is required";
-        } else if (field.id === "name" && value.length < 4) {
-          isValid = false;
-          errorMessage = "Name must be at least 4 characters long";
+          message = "Name too short";
         }
         break;
       default:
         if (!value && field.required) {
           isValid = false;
-          errorMessage = "This field is required";
+          message = "This field is required";
         }
     }
 
-    if (field.type === "textarea" && value.length < 12) {
-      isValid = false;
-      errorMessage = "Message must be at least 12 characters long";
-    }
-
     if (!isValid) {
-      this.showFieldError(field, errorMessage);
+      this.showError(field, message);
+    } else {
+      this.showSuccess(field);
     }
 
     return isValid;
   }
 
   isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   }
 
-  showFieldError(field, message) {
-    this.clearFieldError(field);
-    field.style.borderColor = "#ef4444";
+  showError(field, message) {
+    this.clearStatus(field);
+    field.classList.add("error");
 
-    const errorElement = document.createElement("div");
-    errorElement.className = "field-error";
-    errorElement.style.color = "#ef4444";
-    errorElement.style.fontSize = "0.875rem";
-    errorElement.style.marginTop = "5px";
-    errorElement.textContent = message;
-
-    field.parentNode.appendChild(errorElement);
+    const error = document.createElement("div");
+    error.className = "field-error";
+    error.textContent = message;
+    field.parentNode.appendChild(error);
   }
 
-  clearFieldError(field) {
-    field.style.borderColor = "";
-    const existingError = field.parentNode.querySelector(".field-error");
-    if (existingError) {
-      existingError.remove();
-    }
+  showSuccess(field) {
+    this.clearStatus(field);
+    field.classList.add("success");
   }
 
-  validateForm() {
-    let isValid = true;
-    const requiredFields = this.contactForm.querySelectorAll("[required]");
+  clearStatus(field) {
+    field.classList.remove("error", "success");
+    field.parentNode.querySelector(".field-error")?.remove();
+  }
 
-    requiredFields.forEach((field) => {
-      if (!this.validateField(field)) {
-        isValid = false;
-      }
-    });
-
-    return isValid;
+  clearError(field) {
+    if (field.value.trim()) this.clearStatus(field);
   }
 
   async handleSubmit(event) {
     event.preventDefault();
 
-    if (!this.validateForm()) {
-      this.showFormResponse("Please fix the errors above", "error");
+    const isValid = Array.from(this.form.elements)
+      .filter((el) => el.tagName !== "BUTTON")
+      .every((field) => this.validateField(field));
+
+    if (!isValid) {
+      this.showMessage("Please fix errors above", "error");
       return;
     }
 
-    const submitBtn = this.contactForm.querySelector('button[type="submit"]');
-    const originalText = submitBtn.innerHTML;
-
-    // Show loading state
-    this.setButtonLoading(submitBtn, true);
-
     try {
-      const formData = new FormData(this.contactForm);
+      this.setLoading(true);
 
-      await this.simulateFormSubmission(formData);
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1500));
 
-      this.showFormResponse(
-        "Thank you! Your message has been sent successfully.",
-        "success"
-      );
-      this.contactForm.reset();
+      this.showMessage("Message sent successfully!", "success");
+      this.form.reset();
+      this.clearAllStatuses();
     } catch (error) {
-      console.error("Form submission error:", error);
-      this.showFormResponse(
-        "Sorry! An error occurred while sending your message. Please try again later.",
-        "error"
-      );
+      this.showMessage("Failed to send message", "error");
     } finally {
-      this.setButtonLoading(submitBtn, false, originalText);
+      this.setLoading(false);
     }
   }
 
-  async simulateFormSubmission(formData) {
-    // Simulate API call delay
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        // Simulate random success/failure for demo
-        const isSuccess = Math.random() > 0.2;
-        if (isSuccess) {
-          resolve({ status: "success" });
-        } else {
-          reject(new Error("Server error"));
-        }
-      }, 1500);
-    });
+  setLoading(loading) {
+    const btn = this.form.querySelector('button[type="submit"]');
+    if (!btn) return;
+
+    btn.disabled = loading;
+    btn.textContent = loading ? "Sending..." : "Send Message";
   }
 
-  setButtonLoading(button, isLoading, originalText = "") {
-    if (isLoading) {
-      button.innerHTML =
-        'Sending... <i class="uil uil-spinner animation-spin"></i>';
-      button.disabled = true;
+  showMessage(text, type) {
+    const existing = document.getElementById("form-response");
+    existing?.remove();
 
-      // Add spin animation CSS if not exists
-      if (!document.querySelector("#spin-animation")) {
-        const style = document.createElement("style");
-        style.id = "spin-animation";
-        style.textContent = `
-          .animation-spin {
-            animation: spin 1s linear infinite;
-          }
-          @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-          }
-        `;
-        document.head.appendChild(style);
-      }
-    } else {
-      button.innerHTML = originalText;
-      button.disabled = false;
-    }
+    const message = document.createElement("div");
+    message.id = "form-response";
+    message.className = `form-response ${type}`;
+    message.textContent = text;
+
+    this.form.appendChild(message);
+    setTimeout(() => message.remove(), 5000);
   }
 
-  showFormResponse(message, type) {
-    const formResponse = document.getElementById("form-response");
-    if (!formResponse) return;
-
-    formResponse.textContent = message;
-    formResponse.style.display = "block";
-
-    // Remove existing classes
-    formResponse.classList.remove("success", "error");
-
-    // Add appropriate class
-    formResponse.classList.add(type);
-
-    // Hide response after 5 seconds
-    setTimeout(() => {
-      formResponse.style.display = "none";
-    }, 5000);
-  }
-}
-
-// ----- DOWNLOAD MANAGER -----
-class DownloadManager {
-  constructor() {
-    this.init();
-  }
-
-  init() {
-    this.setupEventListeners();
-  }
-
-  setupEventListeners() {
-    // Add event listeners to all download buttons
-    const downloadButtons = [
-      "downloadCvButton",
-      "downloadCvButtonFeatured",
-      "downloadCvButtonAbout",
-      "downloadCvButtonFooter",
-    ];
-
-    downloadButtons.forEach((buttonId) => {
-      const button = document.getElementById(buttonId);
-      if (button) {
-        button.addEventListener("click", (e) => this.handleDownload(e));
-      }
-    });
-  }
-
-  handleDownload(event) {
-    event.preventDefault();
-    this.downloadCV();
-  }
-
-  downloadCV() {
-    // Create a temporary link for download
-    const link = document.createElement("a");
-    link.href = "shekhar-bhatt-cv.pdf";
-    link.download = "Shekhar-Bhatt-CV.pdf";
-    link.target = "_blank";
-
-    // Trigger download
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
-    // Log download event
-    console.log("CV download initiated");
-  }
-}
-
-// ----- SCROLL REVEAL ANIMATIONS -----
-class ScrollRevealManager {
-  constructor() {
-    this.init();
-  }
-
-  init() {
-    if (typeof ScrollReveal !== "undefined") {
-      this.setupScrollReveal();
-    } else {
-      this.setupIntersectionObserver();
-    }
-  }
-
-  setupScrollReveal() {
-    const sr = ScrollReveal({
-      origin: "top",
-      distance: "40px",
-      duration: 1000,
-      delay: 150,
-      reset: false,
-      easing: "cubic-bezier(0.5, 0, 0, 1)",
-      mobile: true,
-      viewFactor: 0.1,
-    });
-
-    // Home section animations
-    sr.reveal(".featured-badge", { delay: 100 });
-    sr.reveal(".featured-name", { delay: 200 });
-    sr.reveal(".featured-text-info", { delay: 300 });
-    sr.reveal(".featured-text-btn", { delay: 400 });
-    sr.reveal(".social-icons", { delay: 500 });
-    sr.reveal(".featured-image", { delay: 600, origin: "right" });
-
-    // About section animations
-    sr.reveal(".about-info", { origin: "left", delay: 100 });
-    sr.reveal(".about-stats", { origin: "right", delay: 200 });
-
-    // Skills section animations
-    sr.reveal(".skill-category", { interval: 150, delay: 100 });
-
-    // Projects section animations
-    sr.reveal(".project-card", { interval: 150, delay: 100 });
-
-    // Contact section animations
-    sr.reveal(".contact-info", { origin: "left", delay: 100 });
-    sr.reveal(".modern-form", { origin: "right", delay: 200 });
-
-    // Headings animations
-    sr.reveal(".top-header", { delay: 100 });
-  }
-
-  setupIntersectionObserver() {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.style.opacity = "1";
-            entry.target.style.transform = "translateY(0)";
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        threshold: 0.1,
-        rootMargin: "0px 0px -50px 0px",
-      }
-    );
-
-    // Observe all elements that would normally be revealed
-    const elementsToReveal = document.querySelectorAll(
-      ".featured-badge, .featured-name, .featured-text-info, .featured-text-btn, .social-icons, .featured-image, .about-info, .about-stats, .skill-category, .project-card, .contact-info, .modern-form, .top-header"
-    );
-
-    elementsToReveal.forEach((el) => {
-      el.style.opacity = "0";
-      el.style.transform = "translateY(30px)";
-      el.style.transition = "opacity 0.6s ease, transform 0.6s ease";
-      observer.observe(el);
+  clearAllStatuses() {
+    this.form.querySelectorAll("input, textarea").forEach((field) => {
+      this.clearStatus(field);
     });
   }
 }
 
-// ----- PROJECT INTERACTIONS -----
-class ProjectInteractions {
-  constructor() {
-    this.init();
-  }
-
-  init() {
-    this.setupProjectCardInteractions();
-    this.setupFooterSmoothScroll();
-  }
-
-  setupProjectCardInteractions() {
-    document.querySelectorAll(".project-card").forEach((card) => {
-      // Remove existing inline transform styles
-      card.style.transform = "";
-
-      // Use CSS classes instead of inline styles for better performance
-      card.addEventListener("mouseenter", () => {
-        card.classList.add("project-card-hover");
-      });
-
-      card.addEventListener("mouseleave", () => {
-        card.classList.remove("project-card-hover");
-      });
-
-      // Touch devices support
-      card.addEventListener("touchstart", () => {
-        card.classList.add("project-card-touch");
-      });
-
-      card.addEventListener("touchend", () => {
-        card.classList.remove("project-card-touch");
-      });
-    });
-  }
-
-  setupFooterSmoothScroll() {
-    document.querySelectorAll('.footer-column a[href^="#"]').forEach((link) => {
-      link.addEventListener("click", (e) => {
-        e.preventDefault();
-        const targetId = link.getAttribute("href");
-        const targetSection = document.querySelector(targetId);
-
-        if (targetSection) {
-          const headerHeight =
-            document.getElementById("header")?.offsetHeight || 80;
-          const targetPosition = targetSection.offsetTop - headerHeight;
-
-          window.scrollTo({
-            top: targetPosition,
-            behavior: "smooth",
-          });
-        }
-      });
-    });
-  }
-}
-
-// ----- PERFORMANCE OPTIMIZATIONS -----
-class PerformanceOptimizer {
-  constructor() {
-    this.init();
-  }
-
-  init() {
-    this.setupLazyLoading();
-    this.setupPreloadCriticalResources();
-  }
-
-  setupLazyLoading() {
-    // Use native lazy loading for images
-    const images = document.querySelectorAll("img");
-    images.forEach((img) => {
-      if (!img.loading) {
-        img.loading = "lazy";
-      }
-    });
-  }
-
-  setupPreloadCriticalResources() {
-    // Preload critical resources
-    const criticalResources = [];
-
-    criticalResources.forEach((resource) => {
-      const link = document.createElement("link");
-      link.rel = "preload";
-      link.href = resource;
-      link.as = resource.includes(".css") ? "style" : "script";
-      document.head.appendChild(link);
-    });
-  }
-}
-
-// ----- MAIN APPLICATION INITIALIZATION -----
-class PortfolioApp {
-  constructor() {
-    this.modules = {};
-    this.init();
-  }
-
-  init() {
-    try {
-      this.initializeModules();
-      this.setupErrorHandling();
-      this.logInitialization();
-    } catch (error) {
-      console.error("Failed to initialize portfolio app:", error);
-    }
-  }
-
-  initializeModules() {
-    // Initialize all modules
-    this.modules = {
-      navigation: new NavigationManager(),
-      scroll: new ScrollManager(),
-      typing: new TypingEffect(),
-      skills: new SkillsAnimation(),
-      darkMode: new DarkModeManager(),
-      contactForm: new ContactFormManager(),
-      download: new DownloadManager(),
-      scrollReveal: new ScrollRevealManager(),
-      projects: new ProjectInteractions(),
-      performance: new PerformanceOptimizer(),
-    };
-  }
-
-  setupErrorHandling() {
-    window.addEventListener("error", (e) => {
-      console.error("JavaScript Error:", e.error);
-    });
-
-    window.addEventListener("unhandledrejection", (e) => {
-      console.error("Unhandled Promise Rejection:", e.reason);
-      e.preventDefault();
-    });
-  }
-
-  logInitialization() {
-    console.log("🚀 Portfolio initialized successfully!");
-    console.log("📱 Responsive Navigation: Active");
-    console.log("🎨 Dark Mode: Ready");
-    console.log("📜 Smooth Scrolling: Enabled");
-    console.log("💫 Animations: Loaded");
-  }
-
-  getModule(moduleName) {
-    return this.modules[moduleName];
-  }
-}
-
-// Add CSS for project interactions
-const projectInteractionStyles = `
-  .project-card-hover {
-    transform: translateY(-5px) !important;
-    transition: transform 0.3s ease !important;
+// ----- ENHANCED STYLES -----
+const modernStyles = `
+  /* Modern interactions */
+  .project-card {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
-  .project-card-touch {
-    transform: translateY(-2px) !important;
-    transition: transform 0.2s ease !important;
+  .project-card:hover {
+    transform: translateY(-8px) scale(1.02);
+  }
+  
+  /* Form enhancements */
+  .form-input.error {
+    border-color: #ef4444;
+    background: #fef2f2;
+  }
+  
+  .form-input.success {
+    border-color: #10b981;
+    background: #f0fdf4;
+  }
+  
+  .field-error {
+    color: #ef4444;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+  }
+  
+  .form-response {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    font-weight: 600;
   }
   
   .form-response.success {
-    color: #10b981;
     background: #ecfdf5;
+    color: #10b981;
     border: 1px solid #10b981;
   }
   
   .form-response.error {
-    color: #ef4444;
     background: #fef2f2;
+    color: #ef4444;
     border: 1px solid #ef4444;
+  }
+  
+  /* Smooth transitions */
+  .theme-transition * {
+    transition: background-color 0.3s ease, color 0.3s ease !important;
+  }
+  
+  /* Skill animations */
+  .skill-progress {
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Back to top button */
+  #backToTop {
+    transition: all 0.3s ease;
+  }
+  
+  #backToTop.visible {
+    opacity: 1;
+    transform: scale(1);
   }
 `;
 
 // Inject styles
-const styleSheet = document.createElement("style");
-styleSheet.textContent = projectInteractionStyles;
-document.head.appendChild(styleSheet);
+const style = document.createElement("style");
+style.textContent = modernStyles;
+document.head.appendChild(style);
 
-// ----- INITIALIZE APPLICATION -----
-document.addEventListener("DOMContentLoaded", function () {
-  // Initialize the main application
+// ----- INITIALIZATION -----
+document.addEventListener("DOMContentLoaded", () => {
   window.portfolioApp = new PortfolioApp();
 
-  // Add loaded class to body for any post-load animations
-  document.body.classList.add("loaded");
-
-  // Remove preloader if exists
-  const preloader = document.getElementById("preloader");
-  if (preloader) {
-    setTimeout(() => {
-      preloader.style.opacity = "0";
-      setTimeout(() => preloader.remove(), 500);
-    }, 500);
-  }
+  setTimeout(() => {
+    document.body.classList.add("loaded");
+  }, 100);
 });
 
-// Add resize handler for responsive adjustments
-window.addEventListener("resize", function () {
-  if (window.portfolioApp && window.portfolioApp.getModule("skills")) {
-    const skillsModule = window.portfolioApp.getModule("skills");
-    if (skillsModule && skillsModule.hasAnimated) {
-      skillsModule.reset();
-    }
-  }
-});
-
-console.log("✨ Portfolio JavaScript loaded successfully!");
+console.log("✨ Modern Portfolio JS loaded");
