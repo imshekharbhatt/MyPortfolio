@@ -2160,16 +2160,16 @@ body.dark-mode .form-textarea:-webkit-autofill:focus {
     gap: 12px;
     width: 100%;
     margin-bottom: 25px;
-    flex-direction: row; /* Ensure buttons stay in row */
-    flex-wrap: wrap; /* Allow wrapping only if necessary */
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 
   .featured-text-btn .btn {
     padding: 12px 22px;
     font-size: 14px;
     min-height: 44px;
-    flex: 0 1 auto; /* Flexible but maintain content size */
-    min-width: 140px; /* Minimum width for buttons */
+    flex: 0 1 auto;
+    min-width: 140px;
   }
 
   .social-icons {
@@ -2396,7 +2396,7 @@ body.dark-mode .form-textarea:-webkit-autofill:focus {
   }
 
   .featured-text-btn .btn {
-    min-width: 130px; /* Adjust minimum width for smaller screens */
+    min-width: 130px;
     padding: 11px 20px;
   }
 
@@ -2485,15 +2485,15 @@ body.dark-mode .form-textarea:-webkit-autofill:focus {
   }
 
   .featured-text-btn {
-    flex-direction: row; /* Keep buttons in row */
+    flex-direction: row;
     gap: 10px;
-    flex-wrap: wrap; /* Allow wrapping only if absolutely necessary */
+    flex-wrap: wrap;
   }
 
   .featured-text-btn .btn {
-    flex: 1; /* Make buttons flexible */
-    min-width: 120px; /* Smaller minimum width */
-    max-width: 160px; /* Set maximum width */
+    flex: 1;
+    min-width: 120px;
+    max-width: 160px;
     padding: 10px 18px;
     font-size: 13px;
   }
@@ -2540,15 +2540,15 @@ body.dark-mode .form-textarea:-webkit-autofill:focus {
 
   .featured-text-btn {
     margin-bottom: 20px;
-    gap: 8px; /* Smaller gap on mobile */
+    gap: 9px;
   }
 
   .featured-text-btn .btn {
     padding: 10px 16px;
     font-size: 13px;
     min-height: 42px;
-    min-width: 110px; /* Even smaller minimum width */
-    max-width: 140px; /* Smaller maximum width */
+    min-width: 110px;
+    max-width: 140px;
   }
 
   .social-icons {
@@ -2720,13 +2720,13 @@ body.dark-mode .form-textarea:-webkit-autofill:focus {
 
 @media only screen and (max-width: 400px) {
   .featured-text-btn {
-    gap: 6px; /* Even smaller gap for very small screens */
+    gap: 7px;
   }
 
   .featured-text-btn .btn {
-    min-width: 100px; /* Smaller minimum width */
-    max-width: 130px; /* Smaller maximum width */
-    padding: 8px 12px; /* Compact padding */
+    min-width: 100px;
+    max-width: 130px;
+    padding: 8px 12px;
     font-size: 12px;
   }
 }
@@ -2760,13 +2760,13 @@ body.dark-mode .form-textarea:-webkit-autofill:focus {
   }
 
   .featured-text-btn {
-    flex-wrap: nowrap; /* Prevent wrapping at all costs */
+    flex-wrap: nowrap;
     gap: 5px;
   }
 
   .featured-text-btn .btn {
-    min-width: 95px; /* Minimum viable width */
-    max-width: 120px; /* Maximum width */
+    min-width: 95px;
+    max-width: 120px;
     padding: 8px 10px;
     font-size: 11px;
   }
@@ -2814,7 +2814,7 @@ body.dark-mode .form-textarea:-webkit-autofill:focus {
   }
 
   .featured-text-btn .btn {
-    min-width: 90px; /* Absolute minimum width */
+    min-width: 90px;
     max-width: 110px;
     font-size: 10px;
     padding: 6px 8px;
