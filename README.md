@@ -34,7 +34,7 @@ A clean, modern portfolio website built with pure HTML, CSS, and JavaScript. Dem
 - **LinkedIn**: [imshekharbhatt](https://linkedin.com/in/imshekharbhatt)
 - **Email**: [imshekharbhatt@gmail.com](mailto:imshekharbhatt@gmail.com)
 
-<div align="center">
+## <div align="center">
 
 Built with ❤️ using HTML, CSS & JavaScript · Modern Web Standards
 
