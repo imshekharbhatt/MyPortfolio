@@ -2,7 +2,7 @@
 
 **Full-Stack Developer**
 
-[**🌐 Live Website**](https://www.shekharbhatt.com.np) · [**📂 Source Code**](https://github.com/imshekharbhatt/MyPortfolio) · [**💬 Contact**](https://mailto:imshekharbhatt@gmail.com)
+[**🌐 Live Website**](https://www.shekharbhatt.com.np) · [**📂 Source Code**](https://github.com/imshekharbhatt/MyPortfolio) · [**💬 Contact**](https://mailto:imshekharbhatt@gmail.com/)
 
 # About
 
@@ -35,7 +35,7 @@ A clean, modern portfolio website built with pure HTML, CSS, and JavaScript. Dem
 - **Portfolio**: [shekharbhatt.com.np](https://www.shekharbhatt.com.np)
 - **GitHub**: [imshekharbhatt](https://github.com/imshekharbhatt)
 - **LinkedIn**: [imshekharbhatt](https://linkedin.com/in/imshekharbhatt)
-- **Contact** [shekharbhatt](https://mailto:imshekharbhatt@gmail.com)
+- **Contact** [shekharbhatt](https://mailto:imshekharbhatt@gmail.com/)
 
 #
 <div align="center">
