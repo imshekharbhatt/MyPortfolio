@@ -8,11 +8,11 @@
 
 </div>
 
-## About
+** About **
 
 A clean, modern portfolio website built with pure HTML, CSS, and JavaScript. Demonstrates expertise in frontend development with a focus on performance, responsiveness, and user experience.
 
-## Frontend Technologies
+** Frontend Technologies **
 
 HTML5 - Semantic markup & accessibility features
 
@@ -20,13 +20,13 @@ CSS3 - Flexbox, Grid, animations & responsive design
 
 JavaScript ES6+ - Modern syntax & interactive functionality
 
-## Development & Deployment
+** Development & Deployment **
 
 Git - Version control
 
 GitHub Pages - Hosting & continuous deployment
 
-## Features
+** Features **
 
 - Responsive design for all devices
 - Optimized performance and loading times
@@ -34,14 +34,11 @@ GitHub Pages - Hosting & continuous deployment
 - SEO-friendly structure
 - Cross-browser compatibility
 
-## Connect
+** Connect **
 
-<div align="center">
-https://img.shields.io/badge/%F0%9F%8C%90_Portfolio-shekharbhatt.com.np-blue?style=for-the-badge
-https://img.shields.io/badge/%F0%9F%92%BB_GitHub-imshekharbhatt-black?style=for-the-badge
-https://img.shields.io/badge/%F0%9F%92%BC_LinkedIn-imshekharbhatt-blue?style=for-the-badge
-
-</div>
+- **Portfolio**: [shekharbhatt.com.np](https://www.shekharbhatt.com.np)
+- **GitHub**: [imshekharbhatt](https://github.com/imshekharbhatt)
+- **LinkedIn**: [imshekharbhatt](https://linkedin.com/in/imshekharbhatt)
 
 <div align="center">
 
