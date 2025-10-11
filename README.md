@@ -37,6 +37,6 @@ A clean, modern portfolio website built with pure HTML, CSS, and JavaScript. Dem
 
 <div align="center">
 
-Built with modern web standards · Pure HTML, CSS, JavaScript
+Built with ❤️ HTML, CSS & JavaScript · Modern Web Standards
 
 </div>
