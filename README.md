@@ -10,17 +10,17 @@ A clean, modern portfolio website built with pure HTML, CSS, and JavaScript. Dem
 
 # Frontend Technologies
 
-HTML5 - Semantic markup & accessibility features
+**HTML5** - Semantic markup & accessibility features
 
-CSS3 - Flexbox, Grid, animations & responsive design
+**CSS3** - Flexbox, Grid, animations & responsive design
 
-JavaScript ES6+ - Modern syntax & interactive functionality
+**JavaScript ES6+** - Modern syntax & interactive functionality
 
 # Development & Deployment
 
-Git - Version control
+**Git** - Version control
 
-GitHub Pages - Hosting & continuous deployment
+**GitHub Pages** - Hosting & continuous deployment
 
 # Features
 
