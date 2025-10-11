@@ -12,14 +12,16 @@
 
 A clean, modern portfolio website built with pure HTML, CSS, and JavaScript. Demonstrates expertise in frontend development with a focus on performance, responsiveness, and user experience.
 
-Frontend Technologies
+## Frontend Technologies
+
 HTML5 - Semantic markup & accessibility features
 
 CSS3 - Flexbox, Grid, animations & responsive design
 
 JavaScript ES6+ - Modern syntax & interactive functionality
 
-Development & Deployment
+## Development & Deployment
+
 Git - Version control
 
 GitHub Pages - Hosting & continuous deployment
