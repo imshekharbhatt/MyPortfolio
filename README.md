@@ -1,6 +1,6 @@
 # ✦ Shekhar Bhatt - Portfolio
 
-<div align="center">
+<div>
 
 **Full-Stack Developer**
 
@@ -12,12 +12,17 @@
 
 A clean, modern portfolio website built with pure HTML, CSS, and JavaScript. Demonstrates expertise in frontend development with a focus on performance, responsiveness, and user experience.
 
-## Tech Stack
+Frontend Technologies
+HTML5 - Semantic markup & accessibility features
 
-- **HTML5** - Semantic markup and accessibility
-- **CSS3** - Modern layouts and animations  
-- **JavaScript** - Interactive features and functionality
-- **GitHub** - Deployment and hosting
+CSS3 - Flexbox, Grid, animations & responsive design
+
+JavaScript ES6+ - Modern syntax & interactive functionality
+
+Development & Deployment
+Git - Version control
+
+GitHub Pages - Hosting & continuous deployment
 
 ## Features
 
@@ -29,11 +34,12 @@ A clean, modern portfolio website built with pure HTML, CSS, and JavaScript. Dem
 
 ## Connect
 
-- **Portfolio**: [shekharbhatt.com.np](https://www.shekharbhatt.com.np)
-- **GitHub**: [imshekharbhatt](https://github.com/imshekharbhatt)
-- **LinkedIn**: [imshekharbhatt](https://linkedin.com/in/imshekharbhatt)
+<div align="center">
+https://img.shields.io/badge/%F0%9F%8C%90_Portfolio-shekharbhatt.com.np-blue?style=for-the-badge
+https://img.shields.io/badge/%F0%9F%92%BB_GitHub-imshekharbhatt-black?style=for-the-badge
+https://img.shields.io/badge/%F0%9F%92%BC_LinkedIn-imshekharbhatt-blue?style=for-the-badge
 
----
+</div>
 
 <div align="center">
 
