@@ -2,27 +2,24 @@
 
 **Full-Stack Developer**
 
-[**🌐 Live Website**](https://www.shekharbhatt.com.np) · [**📂 Source Code**](https://github.com/imshekharbhatt/MyPortfolio) · [**💬 Contact**](https://mailto:imshekharbhatt@gmail.com/)
+[**🌐 Live Website**](https://www.shekharbhatt.com.np) · [**📂 Source Code**](https://github.com/imshekharbhatt/MyPortfolio) · [**💬 Contact**](mailto:imshekharbhatt@gmail.com)
 
-# About
+## About
 
 A clean, modern portfolio website built with pure HTML, CSS, and JavaScript. Demonstrates expertise in frontend development with a focus on performance, responsiveness, and user experience.
 
-# Frontend Technologies
+## Frontend Technologies
 
-**HTML5** - Semantic markup & accessibility features
+- **HTML5** - Semantic markup & accessibility features
+- **CSS3** - Flexbox, Grid, animations & responsive design  
+- **JavaScript ES6+** - Modern syntax & interactive functionality
 
-**CSS3** - Flexbox, Grid, animations & responsive design
+## Development & Deployment
 
-**JavaScript ES6+** - Modern syntax & interactive functionality
+- **Git** - Version control
+- **GitHub Pages** - Hosting & continuous deployment
 
-# Development & Deployment
-
-**Git** - Version control
-
-**GitHub Pages** - Hosting & continuous deployment
-
-# Features
+## Features
 
 - Responsive design for all devices
 - Optimized performance and loading times
@@ -30,16 +27,15 @@ A clean, modern portfolio website built with pure HTML, CSS, and JavaScript. Dem
 - SEO-friendly structure
 - Cross-browser compatibility
 
-# Connect
+## Connect
 
 - **Portfolio**: [shekharbhatt.com.np](https://www.shekharbhatt.com.np)
 - **GitHub**: [imshekharbhatt](https://github.com/imshekharbhatt)
 - **LinkedIn**: [imshekharbhatt](https://linkedin.com/in/imshekharbhatt)
-- **Contact** [shekharbhatt](https://mailto:imshekharbhatt@gmail.com/)
+- **Email**: [imshekharbhatt@gmail.com](mailto:imshekharbhatt@gmail.com)
 
-#
 <div align="center">
 
-Built with ❤️ HTML, CSS & JavaScript · Modern Web Standards
+Built with ❤️ using HTML, CSS & JavaScript · Modern Web Standards
 
 </div>
