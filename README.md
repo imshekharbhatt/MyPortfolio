@@ -1,12 +1,8 @@
 # ✦ Shekhar Bhatt - Portfolio
 
-<div>
-
 **Full-Stack Developer**
 
 [**🌐 Live Website**](https://www.shekharbhatt.com.np) · [**📂 Source Code**](https://github.com/imshekharbhatt/MyPortfolio)
-
-</div>
 
 ** About **
 
