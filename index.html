@@ -8,6 +8,13 @@
       content="Portfolio of Shekhar Bhatt, a computer engineering student specializing in software development and web technologies."
     />
 
+    <!-- --------- PWA META TAGS ---------- -->
+    <meta name="theme-color" content="#6429ef" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Shekhar Bhatt" />
+    <link rel="manifest" href="portfolioassets/manifest.json" />
+
     <!-- --------- OPEN GRAPH META TAGS FOR LINKEDIN ---------- -->
     <meta
       property="og:title"
@@ -92,7 +99,6 @@
     />
 
     <!-- Modern Meta Tags -->
-    <meta name="theme-color" content="#6429ef" />
     <link rel="preload" href="portfolioassets/style.css" as="style" />
     <link rel="preload" href="portfolioassets/main.js" as="script" />
     <link
@@ -105,13 +111,48 @@
     <meta name="robots" content="index, follow" />
     <meta
       name="keywords"
-      content="full-stack developer, computer engineering, web development, Nepal"
+      content="full-stack developer, computer engineering, web development, Nepal, Python, Flask, JavaScript, React, Node.js"
     />
     <link rel="canonical" href="https://www.shekharbhatt.com.np" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Shekhar Bhatt",
+        "url": "https://www.shekharbhatt.com.np",
+        "image": "https://www.shekharbhatt.com.np/portfolioassets/images/shekhar-profile-image.png",
+        "description": "Computer Engineering Student & Full-Stack Developer specializing in modern web technologies",
+        "jobTitle": "Computer Engineering Student",
+        "alumniOf": {
+          "@type": "CollegeOrUniversity",
+          "name": "National Academy of Science and Technology"
+        },
+        "knowsAbout": [
+          "Web Development",
+          "Python Programming",
+          "JavaScript",
+          "Flask Framework",
+          "MySQL Database",
+          "Frontend Development",
+          "Backend Development"
+        ],
+        "sameAs": [
+          "https://linkedin.com/in/imshekharbhatt",
+          "https://github.com/imshekharbhatt",
+          "https://twitter.com/yourguyshekhar",
+          "https://instagram.com/yourguyshekhar"
+        ]
+      }
+    </script>
 
     <title>Shekhar Bhatt | Computer Engineering Student & Developer</title>
   </head>
   <body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <div class="container">
       <!-- --------------- HEADER --------------- -->
       <nav id="header" role="navigation" aria-label="Primary navigation">
@@ -121,6 +162,7 @@
               src="portfolioassets/images/shekhar-profile-image.png"
               alt="Shekhar Bhatt"
               class="nav-logo-img"
+              loading="lazy"
             />
             <div class="nav-logo-text">
               <p class="nav-name">Shekhar</p>
@@ -194,14 +236,7 @@
               </p>
             </div>
             <div class="featured-text-btn">
-              <button class="btn btn-primary">
-                <a
-                  href="https://linkedin.com/in/imshekharbhatt"
-                  target="_blank"
-                  style="color: inherit; text-decoration: none"
-                  >Hire Me</a
-                >
-              </button>
+              <button class="btn btn-primary" id="hireMeButton">Hire Me</button>
               <button id="downloadCvButtonFeatured" class="btn btn-secondary">
                 Download CV <i class="uil uil-file-alt" aria-hidden="true"></i>
               </button>
@@ -212,6 +247,8 @@
                   href="https://instagram.com/yourguyshekhar"
                   target="_blank"
                   aria-label="Visit Instagram profile"
+                  class="social-link"
+                  data-platform="instagram"
                 >
                   <i class="uil uil-instagram"></i>
                 </a>
@@ -221,6 +258,8 @@
                   href="https://linkedin.com/in/imshekharbhatt"
                   target="_blank"
                   aria-label="Visit LinkedIn profile"
+                  class="social-link"
+                  data-platform="linkedin"
                 >
                   <i class="uil uil-linkedin-alt"></i>
                 </a>
@@ -230,6 +269,8 @@
                   href="https://twitter.com/yourguyshekhar"
                   target="_blank"
                   aria-label="Visit Twitter profile"
+                  class="social-link"
+                  data-platform="twitter"
                 >
                   <i class="uil uil-twitter"></i>
                 </a>
@@ -239,6 +280,8 @@
                   href="https://github.com/imshekharbhatt"
                   target="_blank"
                   aria-label="Visit GitHub profile"
+                  class="social-link"
+                  data-platform="github"
                 >
                   <i class="uil uil-github-alt"></i>
                 </a>
@@ -251,6 +294,7 @@
                 src="portfolioassets/images/shekhar-profile-image.png"
                 alt="Shekhar Bhatt - Computer Engineering Student and Developer"
                 loading="lazy"
+                class="profile-image"
               />
             </div>
           </div>
@@ -329,6 +373,15 @@
                   <div class="stat-content">
                     <h3>Full-Stack</h3>
                     <p>Developer</p>
+                  </div>
+                </div>
+                <div class="stat-card glass-card">
+                  <div class="stat-icon">
+                    <i class="uil uil-rocket" aria-hidden="true"></i>
+                  </div>
+                  <div class="stat-content">
+                    <h3>10+</h3>
+                    <p>Projects Completed</p>
                   </div>
                 </div>
               </div>
@@ -712,17 +765,29 @@
             <h1>Projects</h1>
             <p class="section-subtitle">A showcase of my recent work</p>
           </div>
+          <div class="project-filter">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="web">
+              Web Development
+            </button>
+            <button class="filter-btn" data-filter="fullstack">
+              Full Stack
+            </button>
+            <button class="filter-btn" data-filter="ai">AI/ML</button>
+          </div>
           <div class="project-grid">
             <div
               class="project-card"
               role="article"
               aria-labelledby="project-1-title"
+              data-category="web"
             >
               <div class="project-image">
                 <img
                   src="portfolioassets/images/projects/elite-dental-care.png"
                   alt="Elite Dental Care Website homepage showing modern dental clinic design"
                   loading="lazy"
+                  class="project-img"
                 />
                 <div class="project-overlay" aria-hidden="true">
                   <div class="project-tech">
@@ -730,6 +795,12 @@
                     <span class="tech-tag">CSS3</span>
                     <span class="tech-tag">JavaScript ES6</span>
                   </div>
+                  <button
+                    class="project-quick-view"
+                    data-project="elite-dental"
+                  >
+                    Quick View
+                  </button>
                 </div>
               </div>
               <div class="project-content">
@@ -747,17 +818,21 @@
                   <a
                     href="https://shekharbhatt.com.np/elitedentalcare/"
                     target="_blank"
-                    class="btn-link"
-                    >Live Demo
-                    <i class="uil uil-external-link-alt" aria-hidden="true"></i
-                  ></a>
+                    class="btn-link project-link"
+                    data-project="elite-dental"
+                  >
+                    Live Demo
+                    <i class="uil uil-external-link-alt" aria-hidden="true"></i>
+                  </a>
                   <a
                     href="https://github.com/imshekharbhatt/EltiteDentalCare"
                     target="_blank"
-                    class="btn-link"
-                    >Source Code
-                    <i class="uil uil-github" aria-hidden="true"></i
-                  ></a>
+                    class="btn-link project-link"
+                    data-project="elite-dental"
+                  >
+                    Source Code
+                    <i class="uil uil-github" aria-hidden="true"></i>
+                  </a>
                 </div>
               </div>
             </div>
@@ -766,12 +841,14 @@
               class="project-card"
               role="article"
               aria-labelledby="project-2-title"
+              data-category="web"
             >
               <div class="project-image">
                 <img
                   src="portfolioassets/images/projects/shekhar-bhatt-portfolio.png"
                   alt="Shekhar Bhatt Portfolio Website homepage showing personal branding and projects"
                   loading="lazy"
+                  class="project-img"
                 />
                 <div class="project-overlay" aria-hidden="true">
                   <div class="project-tech">
@@ -779,13 +856,17 @@
                     <span class="tech-tag">CSS3</span>
                     <span class="tech-tag">JavaScript ES6</span>
                   </div>
+                  <button class="project-quick-view" data-project="portfolio">
+                    Quick View
+                  </button>
                 </div>
               </div>
               <div class="project-content">
                 <h3 id="project-2-title">Shekhar Bhatt - Portfolio</h3>
                 <p class="project-description">
                   A personal portfolio showcasing my skills, projects, and
-                  experience as a web developer.
+                  experience as a web developer. Features modern design, smooth
+                  animations, and responsive layout.
                 </p>
                 <div
                   class="project-links"
@@ -795,17 +876,21 @@
                   <a
                     href="https://shekharbhatt.com.np/"
                     target="_blank"
-                    class="btn-link"
-                    >Live Demo
-                    <i class="uil uil-external-link-alt" aria-hidden="true"></i
-                  ></a>
+                    class="btn-link project-link"
+                    data-project="portfolio"
+                  >
+                    Live Demo
+                    <i class="uil uil-external-link-alt" aria-hidden="true"></i>
+                  </a>
                   <a
-                    href="https://github.com/imshekharbhatt/MyPortfolio/elitedentalcare"
+                    href="https://github.com/imshekharbhatt/MyPortfolio"
                     target="_blank"
-                    class="btn-link"
-                    >Source Code
-                    <i class="uil uil-github" aria-hidden="true"></i
-                  ></a>
+                    class="btn-link project-link"
+                    data-project="portfolio"
+                  >
+                    Source Code
+                    <i class="uil uil-github" aria-hidden="true"></i>
+                  </a>
                 </div>
               </div>
             </div>
@@ -814,6 +899,7 @@
               class="project-card"
               role="article"
               aria-labelledby="project-3-title"
+              data-category="fullstack ai"
             >
               <div class="project-image">
                 <div class="project-placeholder-img">
@@ -829,6 +915,12 @@
                     <span class="tech-tag">MySQL</span>
                     <span class="tech-tag">OpenCV</span>
                   </div>
+                  <button
+                    class="project-quick-view"
+                    data-project="face-attendance"
+                  >
+                    Quick View
+                  </button>
                 </div>
               </div>
               <div class="project-content">
@@ -836,8 +928,7 @@
                 <p class="project-description">
                   A real-time face recognition–based attendance system using
                   OpenCV and Flask. It provides secure authentication, automated
-                  attendance logging with MySQL, and a responsive web interface
-                  built with HTML5, CSS3, and JavaScript.
+                  attendance logging with MySQL, and a responsive web interface.
                 </p>
                 <div
                   class="project-links"
@@ -902,32 +993,44 @@
                         href="https://instagram.com/yourguyshekhar"
                         target="_blank"
                         aria-label="Visit Instagram profile"
-                        ><i class="uil uil-instagram" aria-hidden="true"></i
-                      ></a>
+                        class="social-link"
+                        data-platform="instagram"
+                      >
+                        <i class="uil uil-instagram" aria-hidden="true"></i>
+                      </a>
                     </div>
                     <div class="icon" aria-label="LinkedIn">
                       <a
                         href="https://linkedin.com/in/imshekharbhatt"
                         target="_blank"
                         aria-label="Visit LinkedIn profile"
-                        ><i class="uil uil-linkedin-alt" aria-hidden="true"></i
-                      ></a>
+                        class="social-link"
+                        data-platform="linkedin"
+                      >
+                        <i class="uil uil-linkedin-alt" aria-hidden="true"></i>
+                      </a>
                     </div>
                     <div class="icon" aria-label="Twitter">
                       <a
                         href="https://twitter.com/yourguyshekhar"
                         target="_blank"
                         aria-label="Visit Twitter profile"
-                        ><i class="uil uil-twitter" aria-hidden="true"></i
-                      ></a>
+                        class="social-link"
+                        data-platform="twitter"
+                      >
+                        <i class="uil uil-twitter" aria-hidden="true"></i>
+                      </a>
                     </div>
                     <div class="icon" aria-label="GitHub">
                       <a
                         href="https://github.com/imshekharbhatt"
                         target="_blank"
                         aria-label="Visit GitHub profile"
-                        ><i class="uil uil-github-alt" aria-hidden="true"></i
-                      ></a>
+                        class="social-link"
+                        data-platform="github"
+                      >
+                        <i class="uil uil-github-alt" aria-hidden="true"></i>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -942,6 +1045,16 @@
                 novalidate
                 aria-label="Contact form"
               >
+                <!-- Honeypot field for spam protection -->
+                <input
+                  type="text"
+                  name="website"
+                  id="website"
+                  style="display: none"
+                  tabindex="-1"
+                  autocomplete="off"
+                />
+
                 <div class="form-group">
                   <div class="input-container">
                     <input
@@ -953,10 +1066,12 @@
                       required
                       aria-required="true"
                       placeholder=" "
+                      minlength="2"
                     />
                     <label for="name" class="form-label">Full Name</label>
                     <span class="input-focus"></span>
                   </div>
+                  <div class="field-error" id="name-error"></div>
                 </div>
                 <div class="form-group">
                   <div class="input-container">
@@ -973,6 +1088,7 @@
                     <label for="email" class="form-label">Email Address</label>
                     <span class="input-focus"></span>
                   </div>
+                  <div class="field-error" id="email-error"></div>
                 </div>
                 <div class="form-group">
                   <div class="input-container">
@@ -984,10 +1100,12 @@
                       required
                       aria-required="true"
                       placeholder=" "
+                      minlength="5"
                     />
                     <label for="subject" class="form-label">Subject</label>
                     <span class="input-focus"></span>
                   </div>
+                  <div class="field-error" id="subject-error"></div>
                 </div>
                 <div class="form-group">
                   <div class="input-container">
@@ -999,10 +1117,12 @@
                       required
                       aria-required="true"
                       placeholder=" "
+                      minlength="10"
                     ></textarea>
                     <label for="message" class="form-label">Your Message</label>
                     <span class="input-focus"></span>
                   </div>
+                  <div class="field-error" id="message-error"></div>
                 </div>
                 <div class="form-button">
                   <button
@@ -1042,12 +1162,14 @@
               <form
                 class="newsletter-form"
                 aria-label="Newsletter subscription"
+                id="newsletter-form"
               >
                 <input
                   type="email"
                   placeholder="Enter your email"
                   aria-label="Email address"
                   required
+                  id="newsletter-email"
                 />
                 <button type="submit" aria-label="Subscribe">Subscribe</button>
               </form>
@@ -1057,11 +1179,13 @@
             <div class="footer-column">
               <h4>Navigation</h4>
               <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#home" class="footer-nav-link">Home</a></li>
+                <li><a href="#about" class="footer-nav-link">About</a></li>
+                <li><a href="#skills" class="footer-nav-link">Skills</a></li>
+                <li>
+                  <a href="#projects" class="footer-nav-link">Projects</a>
+                </li>
+                <li><a href="#contact" class="footer-nav-link">Contact</a></li>
               </ul>
             </div>
             <div class="footer-column">
@@ -1071,21 +1195,35 @@
                   <a
                     href="https://linkedin.com/in/imshekharbhatt"
                     target="_blank"
+                    class="social-link"
+                    data-platform="linkedin"
                     >LinkedIn</a
                   >
                 </li>
                 <li>
-                  <a href="https://github.com/imshekharbhatt" target="_blank"
+                  <a
+                    href="https://github.com/imshekharbhatt"
+                    target="_blank"
+                    class="social-link"
+                    data-platform="github"
                     >GitHub</a
                   >
                 </li>
                 <li>
-                  <a href="https://twitter.com/yourguyshekhar" target="_blank"
+                  <a
+                    href="https://twitter.com/yourguyshekhar"
+                    target="_blank"
+                    class="social-link"
+                    data-platform="twitter"
                     >Twitter</a
                   >
                 </li>
                 <li>
-                  <a href="https://instagram.com/yourguyshekhar" target="_blank"
+                  <a
+                    href="https://instagram.com/yourguyshekhar"
+                    target="_blank"
+                    class="social-link"
+                    data-platform="instagram"
                     >Instagram</a
                   >
                 </li>
@@ -1094,13 +1232,19 @@
             <div class="footer-column">
               <h4>Resources</h4>
               <ul>
-                <li><a href="#" id="downloadCvButtonFooter">Download CV</a></li>
+                <li>
+                  <a
+                    href="#"
+                    id="downloadCvButtonFooter"
+                    class="footer-download-link"
+                    >Download CV</a
+                  >
+                </li>
                 <li>
                   <a href="https://github.com/imshekharbhatt" target="_blank"
                     >GitHub Profile</a
                   >
                 </li>
-
                 <li>
                   <a href="mailto:imshekharbhatt@gmail.com" target="_blank">
                     Quick Mail
@@ -1114,8 +1258,30 @@
         <div class="footer-bottom">
           <p>&copy; 2024 Shekhar Bhatt. All rights reserved.</p>
           <p class="footer-note">Made with ❤️ by Shekhar Bhatt</p>
+          <div class="performance-metrics">
+            <span id="load-time"></span>
+          </div>
         </div>
       </footer>
+    </div>
+
+    <!-- Project Modal -->
+    <div
+      id="project-modal"
+      class="modal"
+      role="dialog"
+      aria-labelledby="modal-title"
+      aria-hidden="true"
+    >
+      <div class="modal-content">
+        <button class="modal-close" aria-label="Close modal">
+          <i class="uil uil-times"></i>
+        </button>
+        <div class="modal-body">
+          <h3 id="modal-title">Project Details</h3>
+          <div id="modal-content"></div>
+        </div>
+      </div>
     </div>
 
     <!-- Back to Top Button -->

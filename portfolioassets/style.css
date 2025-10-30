@@ -93,6 +93,25 @@ body.dark-mode {
   --first-color-light: rgba(100, 41, 239, 0.15);
 }
 
+/* ----- SYSTEM THEME DETECTION ----- */
+@media (prefers-color-scheme: dark) {
+  body:not(.light-mode) {
+    --black-color: #ffffff;
+    --dark-blue: #8a2be2;
+    --body-color: #0a0a0a;
+    --background-color: #121212;
+    --card-background: rgba(25, 25, 25, 0.98);
+    --glass-background: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    --box-shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.4);
+    --box-shadow-strong: 0 6px 25px rgba(100, 41, 239, 0.2);
+    --text-color-primary: #ffffff;
+    --text-color-second: #b0b0b0;
+    --first-color-light: rgba(100, 41, 239, 0.15);
+  }
+}
+
 /* ----- SKIP LINK ----- */
 .skip-link {
   position: absolute;
@@ -341,6 +360,22 @@ nav {
   display: flex;
   align-items: center;
 }
+.nav-link:hover {
+  color: var(--first-color);
+  transform: translateY(-2px);
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 3px;
+  background: var(--first-color);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
 
 .nav-menu-btn {
   display: none;
@@ -388,10 +423,6 @@ body.dark-mode #darkModeIcon {
   position: relative;
   color: var(--first-color);
   transition: 0.3s;
-}
-
-.nav-link:hover {
-  color: var(--first-color-hover);
 }
 
 .nav-icons {
@@ -1150,6 +1181,11 @@ h3:hover::after {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  transition: transform 0.3s ease;
+}
+
+.skill-item:hover {
+  transform: translateX(8px);
 }
 
 .skill-info {
@@ -1214,6 +1250,34 @@ h3:hover::after {
   }
 }
 
+/* ----- PROJECT FILTER ----- */
+.project-filter {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 10px 20px;
+  background: var(--card-background);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius-sm);
+  color: var(--text-color-second);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  background: var(--gradient-primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: var(--box-shadow-strong);
+}
+
 /* ----- PROJECTS SECTION ----- */
 .project-grid {
   display: grid;
@@ -1233,6 +1297,14 @@ h3:hover::after {
   display: flex;
   flex-direction: column;
   position: relative;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.project-card.hidden {
+  display: none;
+  opacity: 0;
+  transform: scale(0.8);
 }
 
 .project-card::before {
@@ -1476,6 +1548,76 @@ h3:hover::after {
   background: transparent;
   color: var(--first-color);
   transform: none;
+}
+
+/* ----- MODAL STYLES ----- */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  background: var(--card-background);
+  border-radius: var(--border-radius-xl);
+  padding: 40px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  transform: scale(0.7);
+  transition: transform 0.3s ease;
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--box-shadow-hover);
+}
+
+.modal.active .modal-content {
+  transform: scale(1);
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--text-color-second);
+  cursor: pointer;
+  transition: color 0.3s ease;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.modal-close:hover {
+  color: var(--first-color);
+  background: var(--first-color-light);
+}
+
+.modal-body h3 {
+  margin-bottom: 20px;
+  color: var(--first-color);
 }
 
 /* ----- CONTACT SECTION ----- */
@@ -1731,6 +1873,50 @@ h3:hover::after {
   z-index: 3;
 }
 
+/* Form validation styles */
+.form-input.error {
+  border-color: #ef4444;
+  background: #fef2f2;
+}
+
+.form-input.success {
+  border-color: #10b981;
+  background: #f0fdf4;
+}
+
+.field-error {
+  color: #ef4444;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  display: none;
+}
+
+.field-error.show {
+  display: block;
+}
+
+.form-response {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+  font-weight: 600;
+  display: none;
+}
+
+.form-response.success {
+  background: #ecfdf5;
+  color: #10b981;
+  border: 1px solid #10b981;
+  display: block;
+}
+
+.form-response.error {
+  background: #fef2f2;
+  color: #ef4444;
+  border: 1px solid #ef4444;
+  display: block;
+}
+
 /* ----- FORM AUTOFILL STYLES ----- */
 .form-input:-webkit-autofill,
 .form-input:-webkit-autofill:hover,
@@ -1768,16 +1954,6 @@ body.dark-mode .form-textarea:-webkit-autofill:focus {
 
 .form-button i {
   font-size: 18px;
-}
-
-.form-response {
-  margin-top: 20px;
-  padding: 15px;
-  border-radius: var(--border-radius-sm);
-  text-align: center;
-  font-weight: 600;
-  font-size: 1rem;
-  display: none;
 }
 
 /* ----- NEWSLETTER SIGNUP ----- */
@@ -1971,6 +2147,12 @@ body.dark-mode .form-textarea:-webkit-autofill:focus {
   font-size: 0.95rem;
 }
 
+.performance-metrics {
+  margin-top: 10px;
+  font-size: 0.8rem;
+  color: var(--text-color-second);
+}
+
 /* ----- BACK TO TOP BUTTON ----- */
 .back-to-top-btn {
   position: fixed;
@@ -2036,6 +2218,42 @@ body.dark-mode .form-textarea:-webkit-autofill:focus {
   pointer-events: none;
 }
 
+/* ----- LOADING ANIMATIONS ----- */
+.image-loading {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ----- ACCESSIBILITY IMPROVEMENTS ----- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus styles for better accessibility */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--first-color);
+  outline-offset: 2px;
+}
+
 /* ----- MEDIA QUERIES ----- */
 @media only screen and (max-width: 1200px) {
   .featured-name {
@@ -2061,10 +2279,6 @@ body.dark-mode .form-textarea:-webkit-autofill:focus {
   .featured-name {
     font-size: 2.8rem;
     margin-block: 12px;
-  }
-  .featured-title {
-    font-size: 1.25rem;
-    margin-bottom: 20px;
   }
   .featured-text-info {
     font-size: 1rem;
@@ -2136,13 +2350,6 @@ body.dark-mode .form-textarea:-webkit-autofill:focus {
     font-size: 2.4rem;
     margin-block: 10px;
     line-height: 1.1;
-  }
-
-  .featured-title {
-    text-align: left;
-    width: 100%;
-    font-size: 1.2rem;
-    margin-bottom: 18px;
   }
 
   .featured-text-info {
@@ -2372,10 +2579,6 @@ body.dark-mode .form-textarea:-webkit-autofill:focus {
     font-size: 2.1rem;
   }
 
-  .featured-title {
-    font-size: 1.15rem;
-  }
-
   .featured-text-info {
     font-size: 0.92rem;
   }
@@ -2396,8 +2599,8 @@ body.dark-mode .form-textarea:-webkit-autofill:focus {
   }
 
   .featured-text-btn .btn {
-    min-width: 130px;
-    padding: 11px 20px;
+    min-width: 110px;
+    max-width: 140px;
   }
 
   .project-grid {
@@ -2465,10 +2668,6 @@ body.dark-mode .form-textarea:-webkit-autofill:focus {
     font-size: 1.9rem;
   }
 
-  .featured-title {
-    font-size: 1.1rem;
-  }
-
   .featured-text-info {
     font-size: 0.9rem;
     line-height: 1.5;
@@ -2509,11 +2708,6 @@ body.dark-mode .form-textarea:-webkit-autofill:focus {
   .featured-name {
     font-size: 1.7rem;
     margin-block: 8px;
-  }
-
-  .featured-title {
-    font-size: 1rem;
-    margin-bottom: 15px;
   }
 
   .featured-text-info {
@@ -2734,10 +2928,6 @@ body.dark-mode .form-textarea:-webkit-autofill:focus {
 @media only screen and (max-width: 360px) {
   .featured-name {
     font-size: 1.5rem;
-  }
-
-  .featured-title {
-    font-size: 0.95rem;
   }
 
   .featured-text-info {

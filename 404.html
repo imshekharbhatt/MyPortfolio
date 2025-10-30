@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Page not found - Shekhar Bhatt's Portfolio">
+    <meta name="theme-color" content="#6429ef">
+    
+    <title>404 - Page Not Found | Shekhar Bhatt</title>
+    
+    <link rel="stylesheet" href="portfolioassets/style.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    <link rel="icon" href="portfolioassets/images/favicon/favicon.ico" type="image/x-icon">
+    
+    <style>
+        .error-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background: var(--body-color);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .error-content {
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        .error-code {
+            font-size: 6rem;
+            font-weight: 800;
+            margin: 0;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+        
+        .error-message {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 1rem 0 1.5rem;
+            color: var(--text-color-primary);
+        }
+        
+        .error-description {
+            color: var(--text-color-second);
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 0.875rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-color-primary);
+            border-color: var(--glass-border);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .links-section {
+            border-top: 1px solid var(--glass-border);
+            padding-top: 2rem;
+        }
+        
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+        
+        .link-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-color-primary);
+            transition: all 0.3s ease;
+            background: var(--card-background);
+            border: 1px solid var(--glass-border);
+        }
+        
+        .link-item:hover {
+            border-color: var(--first-color);
+        }
+        
+        .link-icon {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--first-color);
+        }
+        
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 4rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+                justify-content: center;
+            }
+            
+            .links-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .links-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-content">
+            <h1 class="error-code">404</h1>
+            <h2 class="error-message">Page not found</h2>
+            <p class="error-description">
+                The page you're looking for doesn't exist or has been moved.
+            </p>
+            
+            <div class="action-buttons">
+                <a href="index.html" class="btn btn-primary">
+                    <i class="uil uil-home"></i>
+                    Back to Home
+                </a>
+                <a href="index.html#contact" class="btn btn-secondary">
+                    <i class="uil uil-envelope"></i>
+                    Report Issue
+                </a>
+            </div>
+            
+           
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentTheme = localStorage.getItem('portfolio-theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const isDark = currentTheme ? currentTheme === 'dark' : prefersDark;
+
+            if (isDark) {
+                document.body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</body>
+</html>

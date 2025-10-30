@@ -1,0 +1,23 @@
+{
+  "name": "Shekhar Bhatt - Portfolio",
+  "short_name": "Shekhar Bhatt",
+  "description": "Computer Engineering Student & Developer Portfolio",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#6429ef",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "portfolioassets/images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "portfolioassets/images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["education", "portfolio", "technology"]
+}

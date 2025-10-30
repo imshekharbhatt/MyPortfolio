@@ -1,3 +1,852 @@
+// ----- PERFORMANCE MONITORING -----
+class PerformanceMonitor {
+  constructor() {
+    this.loadTime = 0;
+    this.init();
+  }
+
+  init() {
+    this.trackLoadTime();
+    this.trackCoreWebVitals();
+  }
+
+  trackLoadTime() {
+    window.addEventListener("load", () => {
+      this.loadTime = performance.now();
+      const loadTimeElement = document.getElementById("load-time");
+      if (loadTimeElement) {
+        loadTimeElement.textContent = `Page loaded in ${Math.round(
+          this.loadTime
+        )}ms`;
+      }
+
+      // Track in analytics
+      this.trackEvent("performance", "page_load", Math.round(this.loadTime));
+    });
+  }
+
+  trackCoreWebVitals() {
+    // LCP (Largest Contentful Paint)
+    const lcpObserver = new PerformanceObserver((entryList) => {
+      const entries = entryList.getEntries();
+      const lastEntry = entries[entries.length - 1];
+      this.trackEvent(
+        "performance",
+        "lcp",
+        Math.round(lastEntry.renderTime || lastEntry.loadTime)
+      );
+    });
+
+    try {
+      lcpObserver.observe({ entryTypes: ["largest-contentful-paint"] });
+    } catch (e) {
+      console.log("LCP tracking not supported");
+    }
+
+    // FID (First Input Delay)
+    const fidObserver = new PerformanceObserver((entryList) => {
+      const entries = entryList.getEntries();
+      entries.forEach((entry) => {
+        this.trackEvent(
+          "performance",
+          "fid",
+          Math.round(entry.processingStart - entry.startTime)
+        );
+      });
+    });
+
+    try {
+      fidObserver.observe({ entryTypes: ["first-input"] });
+    } catch (e) {
+      console.log("FID tracking not supported");
+    }
+  }
+
+  trackEvent(category, action, value) {
+    console.log(`Performance: ${category} - ${action} - ${value}ms`);
+
+    // Google Analytics integration
+    if (typeof gtag !== "undefined") {
+      gtag("event", action, {
+        event_category: category,
+        event_label: "performance",
+        value: value,
+      });
+    }
+  }
+}
+
+// ----- ERROR BOUNDARY & MONITORING -----
+class ErrorBoundary {
+  constructor() {
+    this.init();
+  }
+
+  init() {
+    window.addEventListener("error", this.handleError.bind(this));
+    window.addEventListener(
+      "unhandledrejection",
+      this.handlePromiseRejection.bind(this)
+    );
+  }
+
+  handleError(event) {
+    console.error("Global error:", event.error);
+    this.reportError(event.error);
+  }
+
+  handlePromiseRejection(event) {
+    console.error("Unhandled promise rejection:", event.reason);
+    this.reportError(event.reason);
+  }
+
+  reportError(error) {
+    const errorInfo = {
+      message: error.message,
+      stack: error.stack,
+      timestamp: new Date().toISOString(),
+      url: window.location.href,
+    };
+
+    // Send to analytics service
+    if (typeof gtag !== "undefined") {
+      gtag("event", "exception", {
+        description: error.message,
+        fatal: true,
+      });
+    }
+
+    // Log to console for development
+    if (process.env.NODE_ENV === "development") {
+      console.error("Error captured:", errorInfo);
+    }
+  }
+}
+
+// ----- ANALYTICS MANAGER -----
+class AnalyticsManager {
+  constructor() {
+    this.init();
+  }
+
+  init() {
+    this.trackPageView();
+    this.setupEventTracking();
+  }
+
+  trackPageView() {
+    if (typeof gtag !== "undefined") {
+      gtag("config", "GA_MEASUREMENT_ID", {
+        page_title: document.title,
+        page_location: window.location.href,
+      });
+    }
+  }
+
+  setupEventTracking() {
+    // Track social media clicks
+    document.querySelectorAll(".social-link").forEach((link) => {
+      link.addEventListener("click", (e) => {
+        const platform = link.dataset.platform || "unknown";
+        this.trackEvent("social", "click", platform);
+      });
+    });
+
+    // Track project interactions
+    document.querySelectorAll(".project-link").forEach((link) => {
+      link.addEventListener("click", (e) => {
+        const project = link.dataset.project || "unknown";
+        this.trackEvent("projects", "click", project);
+      });
+    });
+
+    // Track navigation
+    document.querySelectorAll(".nav-link, .footer-nav-link").forEach((link) => {
+      link.addEventListener("click", (e) => {
+        const section = link.getAttribute("href").replace("#", "");
+        this.trackEvent("navigation", "section_view", section);
+      });
+    });
+
+    // Track downloads
+    document.querySelectorAll('[id*="downloadCvButton"]').forEach((button) => {
+      button.addEventListener("click", (e) => {
+        this.trackEvent("download", "cv_download", "Shekhar_Bhatt_CV");
+      });
+    });
+  }
+
+  trackEvent(category, action, label) {
+    console.log(`Analytics: ${category} - ${action} - ${label}`);
+
+    if (typeof gtag !== "undefined") {
+      gtag("event", action, {
+        event_category: category,
+        event_label: label,
+      });
+    }
+  }
+}
+
+// ----- LAZY LOADING MANAGER -----
+class LazyLoadingManager {
+  constructor() {
+    this.observer = null;
+    this.init();
+  }
+
+  init() {
+    this.setupIntersectionObserver();
+    this.lazyLoadImages();
+  }
+
+  setupIntersectionObserver() {
+    if ("IntersectionObserver" in window) {
+      this.observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              this.loadImage(entry.target);
+              this.observer.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          rootMargin: "50px 0px",
+          threshold: 0.1,
+        }
+      );
+    }
+  }
+
+  lazyLoadImages() {
+    const images = document.querySelectorAll("img[data-src]");
+
+    images.forEach((img) => {
+      if (this.observer) {
+        this.observer.observe(img);
+      } else {
+        // Fallback: load all images immediately
+        this.loadImage(img);
+      }
+    });
+  }
+
+  loadImage(img) {
+    const src = img.getAttribute("data-src");
+    if (!src) return;
+
+    img.src = src;
+    img.removeAttribute("data-src");
+    img.classList.remove("image-loading");
+
+    img.onload = () => {
+      img.classList.add("loaded");
+    };
+  }
+}
+
+// ----- PROJECT FILTER MANAGER -----
+class ProjectFilterManager {
+  constructor() {
+    this.filterButtons = document.querySelectorAll(".filter-btn");
+    this.projectCards = document.querySelectorAll(".project-card");
+    this.init();
+  }
+
+  init() {
+    this.setupEventListeners();
+  }
+
+  setupEventListeners() {
+    this.filterButtons.forEach((button) => {
+      button.addEventListener("click", (e) => {
+        this.handleFilterClick(e.target);
+      });
+    });
+  }
+
+  handleFilterClick(button) {
+    const filter = button.dataset.filter;
+
+    // Update active button
+    this.filterButtons.forEach((btn) => btn.classList.remove("active"));
+    button.classList.add("active");
+
+    // Filter projects
+    this.filterProjects(filter);
+
+    // Track filter usage
+    window.portfolioApp
+      .getModule("analytics")
+      ?.trackEvent("projects", "filter", filter);
+  }
+
+  filterProjects(filter) {
+    this.projectCards.forEach((card) => {
+      const categories = card.dataset.category.split(" ");
+
+      if (filter === "all" || categories.includes(filter)) {
+        card.classList.remove("hidden");
+        setTimeout(() => {
+          card.style.opacity = "1";
+          card.style.transform = "scale(1)";
+        }, 50);
+      } else {
+        card.style.opacity = "0";
+        card.style.transform = "scale(0.8)";
+        setTimeout(() => {
+          card.classList.add("hidden");
+        }, 300);
+      }
+    });
+  }
+}
+
+// ----- MODAL MANAGER -----
+class ModalManager {
+  constructor() {
+    this.modal = document.getElementById("project-modal");
+    this.init();
+  }
+
+  init() {
+    this.setupEventListeners();
+  }
+
+  setupEventListeners() {
+    // Quick view buttons
+    document.querySelectorAll(".project-quick-view").forEach((button) => {
+      button.addEventListener("click", (e) => {
+        const project = e.target.dataset.project;
+        this.openModal(project);
+      });
+    });
+
+    // Close modal
+    document.querySelector(".modal-close").addEventListener("click", () => {
+      this.closeModal();
+    });
+
+    // Close on backdrop click
+    this.modal.addEventListener("click", (e) => {
+      if (e.target === this.modal) {
+        this.closeModal();
+      }
+    });
+
+    // Close on escape key
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && this.modal.classList.contains("active")) {
+        this.closeModal();
+      }
+    });
+  }
+
+  openModal(projectId) {
+    const content = this.getModalContent(projectId);
+    document.getElementById("modal-content").innerHTML = content;
+    document.getElementById("modal-title").textContent =
+      this.getProjectTitle(projectId);
+
+    this.modal.classList.add("active");
+    document.body.style.overflow = "hidden";
+
+    // Track modal view
+    window.portfolioApp
+      .getModule("analytics")
+      ?.trackEvent("projects", "modal_view", projectId);
+  }
+
+  closeModal() {
+    this.modal.classList.remove("active");
+    document.body.style.overflow = "";
+  }
+
+  getModalContent(projectId) {
+    const content = {
+      "elite-dental": `
+        <div class="modal-project-info">
+          <h4>Project Overview</h4>
+          <p>A modern dental clinic website built with pure HTML5, CSS3, and JavaScript ES6+.</p>
+          
+          <h4>Key Features</h4>
+          <ul>
+            <li>Fully responsive design</li>
+            <li>Service showcase with animations</li>
+            <li>Contact form with validation</li>
+            <li>Optimized for performance</li>
+          </ul>
+          
+          <h4>Technologies Used</h4>
+          <div class="tech-tags">
+            <span class="tech-tag">HTML5</span>
+            <span class="tech-tag">CSS3</span>
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">Responsive Design</span>
+          </div>
+        </div>
+      `,
+      portfolio: `
+        <div class="modal-project-info">
+          <h4>Project Overview</h4>
+          <p>A personal portfolio website showcasing skills, projects, and experience with modern web technologies.</p>
+          
+          <h4>Key Features</h4>
+          <ul>
+            <li>Dark/Light mode toggle</li>
+            <li>Smooth animations and transitions</li>
+            <li>Responsive design</li>
+            <li>Contact form with validation</li>
+            <li>Performance optimized</li>
+          </ul>
+          
+          <h4>Technologies Used</h4>
+          <div class="tech-tags">
+            <span class="tech-tag">HTML5</span>
+            <span class="tech-tag">CSS3</span>
+            <span class="tech-tag">JavaScript ES6+</span>
+            <span class="tech-tag">ScrollReveal</span>
+            <span class="tech-tag">Typed.js</span>
+          </div>
+        </div>
+      `,
+      "face-attendance": `
+        <div class="modal-project-info">
+          <h4>Project Overview</h4>
+          <p>A real-time face recognition-based attendance system using computer vision and web technologies.</p>
+          
+          <h4>Key Features</h4>
+          <ul>
+            <li>Real-time face detection and recognition</li>
+            <li>Automated attendance logging</li>
+            <li>Secure authentication system</li>
+            <li>Web-based admin interface</li>
+            <li>MySQL database integration</li>
+          </ul>
+          
+          <h4>Technologies Used</h4>
+          <div class="tech-tags">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Flask</span>
+            <span class="tech-tag">OpenCV</span>
+            <span class="tech-tag">MySQL</span>
+            <span class="tech-tag">HTML/CSS/JavaScript</span>
+          </div>
+          
+          <p><strong>Status:</strong> In Development</p>
+        </div>
+      `,
+    };
+
+    return content[projectId] || "<p>Project details not available.</p>";
+  }
+
+  getProjectTitle(projectId) {
+    const titles = {
+      "elite-dental": "Elite Dental Care",
+      portfolio: "Shekhar Bhatt Portfolio",
+      "face-attendance": "Face Attendance System",
+    };
+
+    return titles[projectId] || "Project Details";
+  }
+}
+
+// ----- ENHANCED CONTACT MANAGER -----
+class EnhancedContactManager {
+  constructor() {
+    this.form = document.getElementById("contact-form");
+    this.init();
+  }
+
+  init() {
+    if (this.form) {
+      this.setupEventListeners();
+      this.setupValidation();
+    }
+  }
+
+  setupEventListeners() {
+    this.form.addEventListener("submit", (e) => this.handleSubmit(e));
+
+    // Real-time validation with debouncing
+    this.form.querySelectorAll("input, textarea").forEach((input) => {
+      input.addEventListener("blur", () => this.validateField(input));
+      input.addEventListener(
+        "input",
+        this.debounce(() => {
+          this.clearError(input);
+        }, 300)
+      );
+    });
+
+    // Honeypot protection
+    this.form.addEventListener("submit", (e) => {
+      const honeypot = this.form.querySelector("#website");
+      if (honeypot && honeypot.value) {
+        e.preventDefault();
+        this.showMessage(
+          "Spam detection triggered. Please try again.",
+          "error"
+        );
+        return false;
+      }
+    });
+  }
+
+  debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+
+  setupValidation() {
+    this.form.setAttribute("novalidate", "true");
+  }
+
+  validateField(field) {
+    const value = field.value.trim();
+    let isValid = true;
+    let message = "";
+
+    if (!field.required && !value) return true;
+
+    switch (field.type) {
+      case "email":
+        if (!this.isValidEmail(value)) {
+          isValid = false;
+          message = "Please enter a valid email address";
+        }
+        break;
+      case "text":
+        if (field.id === "name" && value.length < 2) {
+          isValid = false;
+          message = "Name must be at least 2 characters long";
+        } else if (field.id === "subject" && value.length < 5) {
+          isValid = false;
+          message = "Subject must be at least 5 characters long";
+        }
+        break;
+      default:
+        if (field.id === "message" && value.length < 10) {
+          isValid = false;
+          message = "Message must be at least 10 characters long";
+        } else if (!value && field.required) {
+          isValid = false;
+          message = "This field is required";
+        }
+    }
+
+    if (!isValid) {
+      this.showError(field, message);
+    } else {
+      this.showSuccess(field);
+    }
+
+    return isValid;
+  }
+
+  isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  showError(field, message) {
+    this.clearStatus(field);
+    field.classList.add("error");
+
+    const errorElement =
+      field.parentNode.querySelector(".field-error") ||
+      document.createElement("div");
+    errorElement.className = "field-error show";
+    errorElement.textContent = message;
+    errorElement.id = `${field.id}-error`;
+
+    if (!field.parentNode.querySelector(".field-error")) {
+      field.parentNode.appendChild(errorElement);
+    }
+  }
+
+  showSuccess(field) {
+    this.clearStatus(field);
+    field.classList.add("success");
+  }
+
+  clearStatus(field) {
+    field.classList.remove("error", "success");
+    const errorElement = field.parentNode.querySelector(".field-error");
+    if (errorElement) {
+      errorElement.classList.remove("show");
+    }
+  }
+
+  clearError(field) {
+    if (field.value.trim()) this.clearStatus(field);
+  }
+
+  async handleSubmit(event) {
+    event.preventDefault();
+
+    // Validate all fields
+    const isValid = Array.from(this.form.elements)
+      .filter((el) => el.tagName !== "BUTTON" && el.type !== "hidden")
+      .every((field) => this.validateField(field));
+
+    if (!isValid) {
+      this.showMessage(
+        "Please fix the errors above before submitting.",
+        "error"
+      );
+      return;
+    }
+
+    try {
+      this.setLoading(true);
+
+      // Simulate API call with timeout
+      await new Promise((resolve, reject) => {
+        setTimeout(() => {
+          // Simulate random success/failure for demo
+          Math.random() > 0.2 ? resolve() : reject(new Error("Server error"));
+        }, 1500);
+      });
+
+      this.showMessage(
+        "Message sent successfully! I'll get back to you soon.",
+        "success"
+      );
+      this.form.reset();
+      this.clearAllStatuses();
+
+      // Track form submission
+      window.portfolioApp
+        .getModule("analytics")
+        ?.trackEvent("contact", "form_submit", "success");
+    } catch (error) {
+      this.showMessage(
+        "Failed to send message. Please try again later.",
+        "error"
+      );
+      window.portfolioApp
+        .getModule("analytics")
+        ?.trackEvent("contact", "form_submit", "error");
+    } finally {
+      this.setLoading(false);
+    }
+  }
+
+  setLoading(loading) {
+    const btn = this.form.querySelector('button[type="submit"]');
+    if (!btn) return;
+
+    btn.disabled = loading;
+
+    const btnText = btn.querySelector(".btn-text");
+    const btnLoading = btn.querySelector(".btn-loading");
+
+    if (loading) {
+      btnText.textContent = "Sending...";
+      btn.classList.add("loading");
+    } else {
+      btnText.textContent = "Send Message";
+      btn.classList.remove("loading");
+    }
+  }
+
+  showMessage(text, type) {
+    const existing = document.getElementById("form-response");
+    if (existing) {
+      existing.remove();
+    }
+
+    const message = document.createElement("div");
+    message.id = "form-response";
+    message.className = `form-response ${type}`;
+    message.textContent = text;
+
+    this.form.appendChild(message);
+
+    // Auto-remove success messages
+    if (type === "success") {
+      setTimeout(() => message.remove(), 5000);
+    }
+  }
+
+  clearAllStatuses() {
+    this.form.querySelectorAll("input, textarea").forEach((field) => {
+      this.clearStatus(field);
+    });
+  }
+}
+
+// ----- INTERACTIVE PARTICLES -----
+class InteractiveParticles {
+  constructor() {
+    this.init();
+  }
+
+  init() {
+    if (typeof particlesJS !== "undefined") {
+      this.setupParticles();
+      this.setupInteractions();
+    }
+  }
+
+  setupParticles() {
+    particlesJS("particles-js", {
+      particles: {
+        number: {
+          value: 80,
+          density: {
+            enable: true,
+            value_area: 800,
+          },
+        },
+        color: {
+          value: "#6429ef",
+        },
+        shape: {
+          type: "circle",
+        },
+        opacity: {
+          value: 0.5,
+          random: true,
+        },
+        size: {
+          value: 3,
+          random: true,
+        },
+        line_linked: {
+          enable: true,
+          distance: 150,
+          color: "#6429ef",
+          opacity: 0.2,
+          width: 1,
+        },
+        move: {
+          enable: true,
+          speed: 2,
+          direction: "none",
+          random: true,
+          straight: false,
+          out_mode: "out",
+          bounce: false,
+        },
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: {
+            enable: true,
+            mode: "repulse",
+          },
+          onclick: {
+            enable: true,
+            mode: "push",
+          },
+          resize: true,
+        },
+      },
+      retina_detect: true,
+    });
+  }
+
+  setupInteractions() {
+    // Mouse move interaction for particles
+    document.addEventListener("mousemove", (e) => {
+      this.handleMouseMove(e);
+    });
+  }
+
+  handleMouseMove(e) {
+    // You can add custom particle interactions here
+    // This is a basic implementation that can be extended
+  }
+}
+
+// ----- ACCESSIBILITY MANAGER -----
+class AccessibilityManager {
+  constructor() {
+    this.init();
+  }
+
+  init() {
+    this.setupKeyboardNavigation();
+    this.setupFocusManagement();
+    this.setupReducedMotion();
+  }
+
+  setupKeyboardNavigation() {
+    document.addEventListener("keydown", (e) => {
+      // Escape key closes modals and menus
+      if (e.key === "Escape") {
+        this.handleEscapeKey();
+      }
+
+      // Tab key navigation enhancement
+      if (e.key === "Tab") {
+        this.handleTabNavigation(e);
+      }
+    });
+  }
+
+  handleEscapeKey() {
+    // Close mobile menu
+    const navMenu = document.getElementById("myNavMenu");
+    if (navMenu && navMenu.classList.contains("responsive")) {
+      window.portfolioApp.getModule("navigation")?.closeMenu();
+    }
+
+    // Close modal
+    const modal = document.getElementById("project-modal");
+    if (modal && modal.classList.contains("active")) {
+      window.portfolioApp.getModule("modal")?.closeModal();
+    }
+  }
+
+  handleTabNavigation(e) {
+    const focusableElements = document.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+
+    if (e.shiftKey && document.activeElement === firstElement) {
+      e.preventDefault();
+      lastElement.focus();
+    } else if (!e.shiftKey && document.activeElement === lastElement) {
+      e.preventDefault();
+      firstElement.focus();
+    }
+  }
+
+  setupFocusManagement() {
+    // Add focus styles for better accessibility
+    document.addEventListener("focusin", (e) => {
+      e.target.classList.add("focused");
+    });
+
+    document.addEventListener("focusout", (e) => {
+      e.target.classList.remove("focused");
+    });
+  }
+
+  setupReducedMotion() {
+    // Check if user prefers reduced motion
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      document.documentElement.style.setProperty("--transition-normal", "0.1s");
+      document.documentElement.style.setProperty("--transition-slow", "0.1s");
+    }
+  }
+}
+
 // ----- DOWNLOAD MANAGER -----
 class DownloadManager {
   constructor() {
@@ -29,6 +878,17 @@ class DownloadManager {
         });
       }
     });
+
+    // Hire me button
+    const hireMeButton = document.getElementById("hireMeButton");
+    if (hireMeButton) {
+      hireMeButton.addEventListener("click", () => {
+        window.open("https://linkedin.com/in/imshekharbhatt", "_blank");
+        window.portfolioApp
+          .getModule("analytics")
+          ?.trackEvent("engagement", "hire_me_click", "linkedin");
+      });
+    }
   }
 
   handleDownload(event) {
@@ -36,7 +896,9 @@ class DownloadManager {
     this.downloadCV();
 
     // Track download event
-    this.trackDownload();
+    window.portfolioApp
+      .getModule("analytics")
+      ?.trackEvent("download", "cv_download", "Shekhar_Bhatt_CV");
   }
 
   downloadCV() {
@@ -59,18 +921,6 @@ class DownloadManager {
       window.open("portfolioassets/documents/shekhar-bhatt-cv.pdf", "_blank");
     }
   }
-
-  trackDownload() {
-    // Track download event for analytics
-    console.log("CV download initiated");
-
-    if (typeof gtag !== "undefined") {
-      gtag("event", "download", {
-        event_category: "cv",
-        event_label: "Shekhar Bhatt CV",
-      });
-    }
-  }
 }
 
 // ----- MODERN PORTFOLIO MANAGER -----
@@ -83,7 +933,7 @@ class PortfolioApp {
   init() {
     this.initializeModules();
     this.setupGlobalHandlers();
-    console.log("🚀 Portfolio initialized");
+    console.log("🚀 Enhanced Portfolio initialized");
   }
 
   initializeModules() {
@@ -92,8 +942,16 @@ class PortfolioApp {
       scroll: ScrollManager,
       theme: ThemeManager,
       animations: AnimationManager,
-      contact: ContactManager,
-      download: DownloadManager, // Added Download Manager
+      contact: EnhancedContactManager,
+      download: DownloadManager,
+      analytics: AnalyticsManager,
+      performance: PerformanceMonitor,
+      errorBoundary: ErrorBoundary,
+      lazyLoading: LazyLoadingManager,
+      projectFilter: ProjectFilterManager,
+      modal: ModalManager,
+      particles: InteractiveParticles,
+      accessibility: AccessibilityManager,
     };
 
     Object.entries(modules).forEach(([name, Module]) => {
@@ -125,8 +983,19 @@ class PortfolioApp {
       options
     );
 
-    // Error boundary
-    window.addEventListener("error", (e) => console.error("Global error:", e));
+    // Service Worker Registration (for PWA)
+    this.registerServiceWorker();
+  }
+
+  async registerServiceWorker() {
+    if ("serviceWorker" in navigator) {
+      try {
+        const registration = await navigator.serviceWorker.register("/sw.js");
+        console.log("SW registered: ", registration);
+      } catch (error) {
+        console.log("SW registration failed: ", error);
+      }
+    }
   }
 
   getModule(name) {
@@ -176,6 +1045,7 @@ class NavigationManager {
 
   openMenu() {
     this.menuBtn.classList.add("responsive");
+    this.mobileMenuToggle.setAttribute("aria-expanded", "true");
     document.body.style.overflow = "hidden";
 
     // Add event listener to close menu when clicking outside
@@ -189,6 +1059,7 @@ class NavigationManager {
 
   closeMenu() {
     this.menuBtn.classList.remove("responsive");
+    this.mobileMenuToggle.setAttribute("aria-expanded", "false");
     document.body.style.overflow = "";
     document.removeEventListener(
       "click",
@@ -215,7 +1086,7 @@ class NavigationManager {
     document.querySelectorAll(".nav-link").forEach((link) => {
       link.addEventListener("click", (event) => {
         event.preventDefault();
-        const targetId = link.getAttribute("href"); // Fixed: use link instead of this
+        const targetId = link.getAttribute("href");
         this.scrollToSection(targetId);
         this.closeMenu();
       });
@@ -225,7 +1096,7 @@ class NavigationManager {
   scrollToSection(targetId) {
     const targetSection = document.querySelector(targetId);
     if (targetSection) {
-      const headerHeight = this.navHeader?.offsetHeight || 80; // Updated to match new header height
+      const headerHeight = this.navHeader?.offsetHeight || 80;
       const targetPosition = targetSection.offsetTop - headerHeight;
 
       window.scrollTo({
@@ -351,6 +1222,11 @@ class ThemeManager {
   toggleTheme() {
     const isDark = !document.body.classList.contains("dark-mode");
     this.setTheme(isDark, true);
+
+    // Track theme change
+    window.portfolioApp
+      .getModule("analytics")
+      ?.trackEvent("preferences", "theme_toggle", isDark ? "dark" : "light");
   }
 
   setTheme(isDark, animate = true) {
@@ -456,227 +1332,6 @@ class AnimationManager {
   }
 }
 
-// ----- CONTACT MANAGER -----
-class ContactManager {
-  constructor() {
-    this.form = document.getElementById("contact-form");
-    this.init();
-  }
-
-  init() {
-    if (this.form) {
-      this.setupEventListeners();
-      this.setupValidation();
-    }
-  }
-
-  setupEventListeners() {
-    this.form.addEventListener("submit", (e) => this.handleSubmit(e));
-
-    // Real-time validation
-    this.form.querySelectorAll("input, textarea").forEach((input) => {
-      input.addEventListener("blur", () => this.validateField(input));
-      input.addEventListener("input", () => this.clearError(input));
-    });
-  }
-
-  setupValidation() {
-    this.form.setAttribute("novalidate", "true");
-  }
-
-  validateField(field) {
-    const value = field.value.trim();
-    let isValid = true;
-    let message = "";
-
-    if (!field.required && !value) return true;
-
-    switch (field.type) {
-      case "email":
-        if (!this.isValidEmail(value)) {
-          isValid = false;
-          message = "Valid email required";
-        }
-        break;
-      case "text":
-        if (field.id === "name" && value.length < 2) {
-          isValid = false;
-          message = "Name too short";
-        }
-        break;
-      default:
-        if (!value && field.required) {
-          isValid = false;
-          message = "This field is required";
-        }
-    }
-
-    if (!isValid) {
-      this.showError(field, message);
-    } else {
-      this.showSuccess(field);
-    }
-
-    return isValid;
-  }
-
-  isValidEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  }
-
-  showError(field, message) {
-    this.clearStatus(field);
-    field.classList.add("error");
-
-    const error = document.createElement("div");
-    error.className = "field-error";
-    error.textContent = message;
-    field.parentNode.appendChild(error);
-  }
-
-  showSuccess(field) {
-    this.clearStatus(field);
-    field.classList.add("success");
-  }
-
-  clearStatus(field) {
-    field.classList.remove("error", "success");
-    field.parentNode.querySelector(".field-error")?.remove();
-  }
-
-  clearError(field) {
-    if (field.value.trim()) this.clearStatus(field);
-  }
-
-  async handleSubmit(event) {
-    event.preventDefault();
-
-    const isValid = Array.from(this.form.elements)
-      .filter((el) => el.tagName !== "BUTTON")
-      .every((field) => this.validateField(field));
-
-    if (!isValid) {
-      this.showMessage("Please fix errors above", "error");
-      return;
-    }
-
-    try {
-      this.setLoading(true);
-
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-
-      this.showMessage("Message sent successfully!", "success");
-      this.form.reset();
-      this.clearAllStatuses();
-    } catch (error) {
-      this.showMessage("Failed to send message", "error");
-    } finally {
-      this.setLoading(false);
-    }
-  }
-
-  setLoading(loading) {
-    const btn = this.form.querySelector('button[type="submit"]');
-    if (!btn) return;
-
-    btn.disabled = loading;
-    btn.textContent = loading ? "Sending..." : "Send Message";
-  }
-
-  showMessage(text, type) {
-    const existing = document.getElementById("form-response");
-    existing?.remove();
-
-    const message = document.createElement("div");
-    message.id = "form-response";
-    message.className = `form-response ${type}`;
-    message.textContent = text;
-
-    this.form.appendChild(message);
-    setTimeout(() => message.remove(), 5000);
-  }
-
-  clearAllStatuses() {
-    this.form.querySelectorAll("input, textarea").forEach((field) => {
-      this.clearStatus(field);
-    });
-  }
-}
-
-// ----- ENHANCED STYLES -----
-const modernStyles = `
-  /* Modern interactions */
-  .project-card {
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  .project-card:hover {
-    transform: translateY(-8px) scale(1.02);
-  }
-  
-  /* Form enhancements */
-  .form-input.error {
-    border-color: #ef4444;
-    background: #fef2f2;
-  }
-  
-  .form-input.success {
-    border-color: #10b981;
-    background: #f0fdf4;
-  }
-  
-  .field-error {
-    color: #ef4444;
-    font-size: 0.875rem;
-    margin-top: 0.5rem;
-  }
-  
-  .form-response {
-    padding: 1rem;
-    border-radius: 0.5rem;
-    margin-top: 1rem;
-    font-weight: 600;
-  }
-  
-  .form-response.success {
-    background: #ecfdf5;
-    color: #10b981;
-    border: 1px solid #10b981;
-  }
-  
-  .form-response.error {
-    background: #fef2f2;
-    color: #ef4444;
-    border: 1px solid #ef4444;
-  }
-  
-  /* Smooth transitions */
-  .theme-transition * {
-    transition: background-color 0.3s ease, color 0.3s ease !important;
-  }
-  
-  /* Skill animations */
-  .skill-progress {
-    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  /* Back to top button */
-  #backToTop {
-    transition: all 0.3s ease;
-  }
-  
-  #backToTop.visible {
-    opacity: 1;
-    transform: scale(1);
-  }
-`;
-
-// Inject styles
-const style = document.createElement("style");
-style.textContent = modernStyles;
-document.head.appendChild(style);
-
 // ----- INITIALIZATION -----
 document.addEventListener("DOMContentLoaded", () => {
   window.portfolioApp = new PortfolioApp();
@@ -686,4 +1341,4 @@ document.addEventListener("DOMContentLoaded", () => {
   }, 100);
 });
 
-console.log("✨ Modern Portfolio JS loaded");
+console.log("✨ Enhanced Portfolio JS loaded");
